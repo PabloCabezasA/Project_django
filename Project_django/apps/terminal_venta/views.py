@@ -1,13 +1,13 @@
 from Project_django.apps.terminal_venta.models import Product_product
-from Project_django.apps.curso1 import forms
+from Project_django.apps.terminal_venta import forms
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.contrib import messages
 # Create your views here.
 
 class AddProductView(CreateView):
-    template_name = 'product/autor_autor_view.html'
+    template_name = 'product/product_product_view.html'
     model = Product_product
-    form_class = forms.autor_autor_form
+    form_class = forms.product_product_form
 
 
 class ListProductView(ListView):
@@ -17,13 +17,13 @@ class ListProductView(ListView):
 class EditProductView(UpdateView):
     model = Product_product
     template_name = 'product/autor_autor_view.html'
-    form_class = forms.autor_autor_form
+    form_class = forms.product_product_form
 
     
 class DetailProductView(DetailView):
     model = Product_product
     template_name = 'product/autor_autor_detalle.html'
-    form_class = forms.autor_autor_form
+    form_class = forms.product_product_form
 
     def get_context_data(self, **kwargs):
         ctx = super(DetailProductView, self).get_context_data(**kwargs)

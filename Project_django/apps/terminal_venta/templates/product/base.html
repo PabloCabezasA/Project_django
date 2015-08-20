@@ -1,0 +1,18 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<header>
+	<link href="{% static "project_django/bootstrap_3_dist/css/bootstrap.min.css" %}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{% static "project_django/src/css/mejorando.css" %}">
+</header>
+<body>
+	<div>
+	{% block level1 %}
+	{% endblock %}
+	</div>
+
+<script src="http://code.jquery.com/jquery-1.11.3.js"  type="text/javascript" ></script>
+<script src="{% static "project_django/bootstrap_3_dist/js/bootstrap.js" %}"  type="text/javascript" ></script>
+<script src="{% static "project_django/src/js/mejorando.js" %}"  type="text/javascript" ></script>
+</body>
+</html>

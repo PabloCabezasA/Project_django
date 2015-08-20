@@ -7,6 +7,7 @@ urlpatterns = [
      url(r'^$', 'Project_django.views.index', name='index'),
      url(r'^login/$', 'Project_django.apps.curso1.views.login', name='login'),
      url(r'^curso1/', include('Project_django.apps.curso1.urls' , namespace="curso1")),
+     url(r'^product/', include('Project_django.apps.terminal_venta.urls' , namespace="product")),
      url(r'^media/(?P<path>.*)$','django.views.static.serve',
 	       {'document_root':settings.MEDIA_ROOT,}
 	),
