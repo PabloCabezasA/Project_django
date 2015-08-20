@@ -1,0 +1,37 @@
+{% load staticfiles %}
+<html>
+	
+	<header>
+
+	 <link href="{% static "project_django/bootstrap_3_dist/css/bootstrap.min.css" %}" rel="stylesheet">
+	</header>
+	<body>
+	<form action="." method="post">{% csrf_token %}
+    	<label for="your_name">Iniciar Test: </label>
+    	<input type="submit" class="btn btn-primary" value="OK">
+	</form>
+	<div class="container-fluid">
+		<div class="row">
+			  <div class="col-md-12">
+			  {% if respuesta %}
+			  <h3>Respuesta Servidor</h3>
+			  <p>
+			  {{ respuesta }}
+			  </p>
+			  {% endif %}
+			  </div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				  {% if xml %}
+				  <h3>XML Enviado</h3>
+				  <p>
+				  {{ xml }}
+				  </p>
+				  {% endif %}
+		    </div>
+		</div>
+		
+	</div>
+	</body>
+</html>

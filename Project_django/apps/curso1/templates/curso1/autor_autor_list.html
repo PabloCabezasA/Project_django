@@ -1,0 +1,29 @@
+{% extends "curso1/index.html" %}
+{% load staticfiles %}
+{% block level1 %}
+	<div class="container-fluid">
+  		<div class="row">
+	  		<div class="col-md-12">
+	  			{% for autor in autor_autor_list %}
+	  			<div class="col-md-3">
+	    			<div class="thumbnail" >
+
+	      			  <img src="{{ autor.model_pic.url }}" alt="No Photo" class="img-thumbnail"  style="width:225px;height:190px" width="225" height="190">
+      					<div class="caption">
+        					<h4>{{ autor.name }}{{ autor.apellidos }}</h4>
+        					<h5>Desde: {{ autor.fecha_nac }}</h5>
+        					<h5>Hasta: {{ autor.fecha_fin }}</h5>
+        					<p>
+        				       <a href="{% url 'curso1:autor_autor_detalle' pk=autor.id %}" class="btn btn-primary" role="button">Ver</a>
+        					   <a href="{% url 'curso1:autor_autor_edit' pk=autor.id %}"
+        					   class="btn btn-default" role="button">Editar</a>
+        					   <a href="{% url 'curso1:autor_autor_borrar' pk=autor.id %}" class="btn btn-danger" role="button">Borrar</a>
+        					</p>        					
+      					</div>
+	    			</div>
+	    		</div>
+    			{% endfor %}	  			
+	  		</div>
+  		</div>
+	</div>
+{% endblock %}

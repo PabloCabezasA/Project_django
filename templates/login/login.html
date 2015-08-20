@@ -1,0 +1,27 @@
+{% load staticfiles %}
+<html>
+	<header>
+	 <link href="{% static "project_django/bootstrap_3_dist/css/bootstrap.min.css" %}" rel="stylesheet">    
+	</header>
+	<body>
+	<div class="container-fluid">
+	
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}	
+		<div class="row">
+			  <div class="col-md-12">
+			  <form action="." method="post">{% csrf_token %}
+	    		  <label for="your_name">Usuario: </label>
+	    		  <input type="text" id="username" name="username"  placeholder="Username">
+	    		  <label for="your_name">Pass: </label>
+	    		  <input type="password" id="password" name="password"  placeholder="Username">
+			  </form>	  
+		</div>
+	</div>
+	</body>
+</html>
