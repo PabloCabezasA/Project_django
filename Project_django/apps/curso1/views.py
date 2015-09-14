@@ -91,6 +91,10 @@ class ListAuthorView(ListView):
     template_name = 'curso1/autor_autor_list.html'
     model = autor_autor
 
+    def get_queryset(self):
+        self.publisher = get_object_or_404(Publisher, name=self.args[0])
+        return Book.objects.filter(publisher=self.publisher)    
+
 class EditAuthorView(UpdateView):
     model = autor_autor
     template_name = 'curso1/autor_autor_view.html'

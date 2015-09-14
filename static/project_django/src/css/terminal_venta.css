@@ -1,0 +1,6 @@
+#boleta_terminal_venta {
+	background-color: white;
+	min-width: 400px;
+	min-height: 600px;
+	border: 1px solid gray;
+}

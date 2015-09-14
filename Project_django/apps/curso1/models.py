@@ -48,5 +48,4 @@ class autor_autor_obras(models.Model):
     
     def clean_fields(self, exclude=None):
         res = super(autor_autor_obras, self).clean_fields(exclude)
-        print res
         return res
