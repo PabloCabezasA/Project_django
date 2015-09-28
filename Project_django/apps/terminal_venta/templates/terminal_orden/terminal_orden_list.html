@@ -1,0 +1,25 @@
+{% extends "product/base.html" %}
+{% block level1 %}
+	<div class="container-fluid">
+  		<div class="row">
+	  		<div class="col-md-12">
+			<table class="table table-hover" id="table_account_tree">
+				<th></th>
+				<th>Nombre</th>
+		  		<th>Fecha Pedido</th>
+		  		<th>Total</th>		  		
+			  {% for orden in terminal_order_list %}
+		  		<tr>
+		  			<td>  			
+		      			<input class="check_table" type="checkbox" value="{{cu.id}}">    		
+		    		</td>
+		  			<td><p>{{orden.name}}</p></td>  			
+		  			<td><p>{{orden.date_order}}</p></td>  			
+		  			<td><p>{{orden.amount_total}}</p></td>  			
+		  		</tr>  				
+		  		{% endfor %}
+			</table>
+	  		</div>
+  		</div>
+	</div>
+{% endblock %}

@@ -1,8 +1,8 @@
-from Project_django.apps.terminal_venta.models import Product_product,Terminal_order,Terminal_order_line
+from Project_django.apps.terminal_venta.models import Product_product, Terminal_order, Terminal_order_line
 from Project_django.apps.terminal_venta import forms
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.contrib import messages
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from django.db.models import Q
 from django.http import HttpResponse
@@ -18,19 +18,26 @@ def base_view(request):
 def save_data(request):
     values = {}
     terminal_obj = Terminal_order()
+    product = Product_product()
     if request.is_ajax():
         lists = request.GET.get('list')
         jd = json.dumps(lists)
-        list = eval(json.loads(jd))
-        if list:
-            id = terminal_obj.crear_pedido({'name':random.randrange(100000,999999,1),
-                                       'date_order': datetime.date.today().strftime('%Y-%m-%d'),
-                                       'amount_total' : terminal_obj.get_total(list)
-                                       })
-        for i in list:
-            print i
+        j_list = eval(json.loads(jd))
+        if j_list:
+            order_id= terminal_obj.crear_pedido({'name':random.randrange(100000,999999,1),
+                                                 'date_order': datetime.date.today().strftime('%Y-%m-%d'),
+                                                 'amount_total' : terminal_obj.get_total(j_list)
+                                       })        
+        for line in j_list:
+            termial_line = Terminal_order_line(  
+                            order_id=order_id,
+                            product_id= product.get_product_id(line['code'],line['name']),
+                            qty= 1,
+                            price_unit= 1000,
+                            amount_total=999
+                            )
+            termial_line.save()
     return HttpResponse({'hola':'mundo'}, content_type='application/json')
-
 
 def terminal_view(request):
     values = {}
@@ -60,7 +67,8 @@ def create_json_response(filter):
         to_json.append(dict)
     return simplejson.dumps(to_json)
 
-    
+
+# vistas basadas en clases de modelo Producto     
 
 class AddProductView(CreateView):
     template_name = 'product/product_product_view.html'
@@ -92,6 +100,7 @@ class DetailProductView(DetailView):
         ctx['lista_videos'] = Product_product.objects.filter(autor_id = self.object.id)
         return ctx
     
+
 class DeleteProductView(DeleteView):
     model = Product_product
     template_name = 'product/autor_autor_list.html'
@@ -109,4 +118,40 @@ class DeleteProductView(DeleteView):
         This has been overriden because by default
         DeleteView doesn't work with GET requests
         """
-        return self.delete(*args, **kwargs)    
+        return self.delete(*args, **kwargs)
+
+# vistas basadas en clases de modelo Terminal Orden
+class ListTerminalView(ListView):
+    model = Terminal_order
+    template_name = 'terminal_orden/terminal_orden_list.html'
+    
+    def get_queryset(self):
+        return Terminal_order.objects.all()      
+    
+class UpdateTerminalView(UpdateView):
+    model = Terminal_order
+    template_name = 'terminal_orden/terminal_orden_form.html'
+    form_class = forms.Terminal_orden_form
+    
+    def get_context_data(self, **kwargs):
+        ctx = super(UpdateTerminalView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            ctx['form'] = forms.Terminal_orden_form(self.request.POST, instance=self.object)
+            ctx['inlines'] = forms.Terminal_order_line_formset(self.request.POST,instance=self.object)        
+        else:
+            ctx['form'] = forms.Terminal_orden_form(instance=self.object)
+            ctx['inlines'] = forms.Terminal_order_line_formset(instance=self.object)
+        return ctx
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        form = context['form']
+        formset = context['inlines']
+        if form.is_valid():
+            self.object = form.save()
+            formset.instance = self.object
+            if formset.is_valid():
+                formset.save()
+            return redirect(self.object.get_absolute_url())  # assuming your model has ``get_absolute_url`` defined.
+        else:
+            return self.render_to_response(self.get_context_data(form=form))

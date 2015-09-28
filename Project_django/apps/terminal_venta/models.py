@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 
 # Create your models here.
 class Product_product(models.Model):
@@ -16,15 +17,19 @@ class Product_product(models.Model):
     def get_absolute_url(self):        
         return reverse('product:product_product_list')
     
+    def get_product_id(self, code, name):
+        prod =self.__class__.objects.get(Q(name=name), Q(code=code))
+        return prod
+    
 class Terminal_order(models.Model):
     name = models.CharField('Nombre', max_length=120, blank=False, unique=True)
-    date_order = models.DateField('Fecha Pedido', blank=False, unique=True)
+    date_order = models.DateField('Fecha Pedido', blank=False)
     amount_total = models.PositiveIntegerField('Monto Total', blank=False)
     
     def crear_pedido(self,data):        
-        order= Terminal_order(name = data['name'], date_order=data['date_order'], amount_total=data['amount_total'])
+        order= Terminal_order(name=data['name'], date_order=data['date_order'], amount_total=data['amount_total'])
         order.save()
-        return order.id
+        return order
 
     def get_total(self,lines):
         amount_total = 0
@@ -32,10 +37,13 @@ class Terminal_order(models.Model):
             amount_total += float(i['amount_total'].replace(',','.')) 
         return amount_total
 
+    def get_absolute_url(self):        
+        return reverse('product:terminal-orden-edit', kwargs={'pk': self.id})
+
+
 class Terminal_order_line(models.Model):
     order_id = models.ForeignKey(Terminal_order)
     product_id = models.ForeignKey(Product_product)
     qty = models.PositiveIntegerField('Cantidad', blank=False)
     price_unit = models.PositiveIntegerField('Precio Unitario', blank=False)
-    amount_total = models.PositiveIntegerField('Monto Total', blank=False)
-        
+    amount_total = models.FloatField('Monto Total', blank=False)
