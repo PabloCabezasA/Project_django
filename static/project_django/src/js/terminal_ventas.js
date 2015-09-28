@@ -22,14 +22,7 @@ $(document).ready(function(){
 		$.each(product, function(){
 			list_product.push($(this).text())
 		});
-		cont = "<div id='ticket_"+list_product[0]+"'>" +
-				"<label>"+list_product[0]+"</label> " +
-				"<label>"+list_product[1]+"</label> "+
-				"<label id='sg'>$</label> "+
-				"<input type='text' class='price_product_ticket' value='"+list_product[3]+"'/>"+
-				"</div>"
-		$('#boleta_terminal_venta').append(cont)
-		
+		find_ticket_in(list_product)
 	});
 	
 	$('#ticket_save_button').click(function(){
@@ -49,6 +42,19 @@ $(document).ready(function(){
 		send_to_server(list_ticket)
 	});
 });
+
+function find_ticket_in(list_product){
+	cont = "<div id='ticket_"+list_product[0]+"'>" +
+			"<label>"+list_product[0]+"</label> " +
+			"<label>"+list_product[1]+"</label> "+
+			"<label id='sg'>$</label> "+
+			"<input type='text' class='price_product_ticket' value='"+list_product[3]+"'/>"+
+			"</div>"				
+	
+	ticket = $('#boleta_terminal_venta'+' #ticket_'+list_product[0])
+	console.log(ticket)
+	$('#boleta_terminal_venta').append(cont)
+}
 
 function send_to_server(tickets){
 	$.ajax({
