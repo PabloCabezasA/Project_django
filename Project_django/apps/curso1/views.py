@@ -1,10 +1,9 @@
 from django.shortcuts import render, render_to_response, HttpResponseRedirect,get_object_or_404, redirect
 from django.template import RequestContext
-from django.contrib.auth import authenticate, login, logout
 from Project_django.apps.curso1.models import autor_autor, autor_autor_obras
 from Project_django.apps.curso1 import forms
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
-from django.contrib import messages
+
 # Create your views here.
 
 def index(request,value=None,*args,**kwargs):
@@ -18,22 +17,6 @@ def index(request,value=None,*args,**kwargs):
     autores = autor_autor.objects.all()
     return render_to_response('curso1/index.html',{'autores': autores,'obras':obras},context_instance=RequestContext(request))
 
-
-def login(request):
-    logout(request)
-    username = password = ''
-    if request.POST:
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect('/curso1/')
-        else:
-            messages.error(request, 'Usuario o Clave incorrecta')
-            return render_to_response('login/login.html', context_instance=RequestContext(request))
-    return render_to_response('login/login.html', context_instance=RequestContext(request))
 
 def autor_autor_form(request, autor_id=False):
     article = False
@@ -91,9 +74,6 @@ class ListAuthorView(ListView):
     template_name = 'curso1/autor_autor_list.html'
     model = autor_autor
 
-    def get_queryset(self):
-        self.publisher = get_object_or_404(Publisher, name=self.args[0])
-        return Book.objects.filter(publisher=self.publisher)    
 
 class EditAuthorView(UpdateView):
     model = autor_autor

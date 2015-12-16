@@ -1,0 +1,7 @@
+{{ object.assignednumber }}
+
+{{ object.holderrightenterprise.nit }}
+
+{{ object.territory }}
+
+{{ object.people }}

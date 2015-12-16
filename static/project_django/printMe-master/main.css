@@ -1,0 +1,14 @@
+th.blue {
+	background: #08C;
+	color: #FFF;
+}
+.main {
+	margin-top: 3em;
+}
+p {
+	line-height: 30px;
+	color: #FFF;	
+}
+code {
+	line-height: 60px;
+}

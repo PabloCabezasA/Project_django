@@ -12,7 +12,7 @@ import random
 import datetime
 # Create your views here.
 
-def base_view(request):
+def base_view(request):                        
     return render_to_response('product/base.html', context_instance=RequestContext(request))
 
 def save_data(request):
@@ -27,17 +27,17 @@ def save_data(request):
             order_id= terminal_obj.crear_pedido({'name':random.randrange(100000,999999,1),
                                                  'date_order': datetime.date.today().strftime('%Y-%m-%d'),
                                                  'amount_total' : terminal_obj.get_total(j_list)
-                                       })        
+                                                 })        
         for line in j_list:
             termial_line = Terminal_order_line(  
                             order_id=order_id,
                             product_id= product.get_product_id(line['code'],line['name']),
-                            qty= 1,
-                            price_unit= 1000,
-                            amount_total=999
+                            qty= line['qty'],
+                            price_unit= float(line['price_unit'].replace(',','.')),
+                            amount_total = float(line['amount_total'].replace(',','.'))
                             )
             termial_line.save()
-    return HttpResponse({'hola':'mundo'}, content_type='application/json')
+    return HttpResponse(simplejson.dumps({'exito':'Orden Creada Correctamente'}), content_type='application/json')
 
 def terminal_view(request):
     values = {}
@@ -86,7 +86,7 @@ class ListProductView(ListView):
 
 class EditProductView(UpdateView):
     model = Product_product
-    template_name = 'product/autor_autor_view.html'
+    template_name = 'product/product_product_view.html'
     form_class = forms.product_product_form
 
     
@@ -124,7 +124,8 @@ class DeleteProductView(DeleteView):
 class ListTerminalView(ListView):
     model = Terminal_order
     template_name = 'terminal_orden/terminal_orden_list.html'
-    
+    paginate_by = 10
+
     def get_queryset(self):
         return Terminal_order.objects.all()      
     
@@ -152,6 +153,7 @@ class UpdateTerminalView(UpdateView):
             formset.instance = self.object
             if formset.is_valid():
                 formset.save()
+            messages.add_message(self.request, messages.SUCCESS, 'Orden editada con exito')
             return redirect(self.object.get_absolute_url())  # assuming your model has ``get_absolute_url`` defined.
         else:
             return self.render_to_response(self.get_context_data(form=form))

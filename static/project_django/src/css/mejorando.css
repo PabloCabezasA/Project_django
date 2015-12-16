@@ -22,3 +22,7 @@ ul {
 }
 
 .needs-alt { border:5px solid #F00; }
+
+.inp_readonly{
+	background-color: #DAD8D8;
+}

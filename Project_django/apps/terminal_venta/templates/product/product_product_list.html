@@ -2,20 +2,16 @@
 {% block level1 %}
 	<div class="container-fluid">
   		<div class="row">
-	  		<div class="col-md-12">
-
-	  			{% for product in product_product_list %}
-	  			<div class="col-md-3">
-	    			<div class="thumbnail" >
-
-	      			  <img src="{{ product.model_pic.url }}" alt="No Photo" class="img-thumbnail"  style="width:225px;height:190px" width="225" height="190">
-      					<div class="caption">
-        					<h4>{{ product.name }}{{ product.code }}</h4>        					
-      					</div>
-	    			</div>
-	    		</div>
-    			{% endfor %}	  			
-	  		</div>
+	 			{% for product in product_product_list %}
+	 			<div class="col-md-3">
+	   			<div class="thumbnail" onclick="location.href='{% url 'terminal:product-edit' pk=product.id %}';">	
+	     			  <img src="{{ product.model_pic.url }}" alt="No Photo" class="img-thumbnail img-responsive"  style="width:225px;height:190px" width="225" height="190">
+	    					<div class="caption">
+	      					<h4>{{ product.name }}{{ product.code }}</h4>        					
+	    					</div>
+		   			</div>
+		   		</div>
+	  			{% endfor %}	  			
   		</div>
 	</div>
 {% endblock %}

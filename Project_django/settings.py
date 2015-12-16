@@ -26,10 +26,7 @@ SECRET_KEY = 'j&vi!c(cqobn_)8y(rg_#wlp2=7t)x7)f0!mmv7dh31^5n^27x'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
-# Application definition
-
+    
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,6 +34,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'Project_django.apps.curso1',
     'Project_django.apps.terminal_venta',
 
@@ -89,7 +87,6 @@ DATABASES = {
     }
 }
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
@@ -111,11 +108,18 @@ MEDIA_URL = '/media/'
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
+STATICFILES_DIRS = (    
     os.path.join(BASE_DIR, 'static'),
 )
 
 STATICFILES_FINDERS = ("django.contrib.staticfiles.finders.FileSystemFinder",
                        "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-                       "dajaxice.finders.DajaxiceFinder"
                        )
+
+#REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+#    'DEFAULT_PERMISSION_CLASSES': [
+#        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#    ]
+#}

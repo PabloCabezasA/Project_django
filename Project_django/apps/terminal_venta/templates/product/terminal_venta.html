@@ -1,25 +1,25 @@
 {% extends "product/base.html" %}
 {% load static %}
-{% block links %}
-<link rel="stylesheet" type="text/css" href="{% static "project_django/src/css/terminal_venta.css" %}">
-{% endblock %}
-
 {% block level1 %}
 	<div class="container-fluid">
   		<div class="row">
   			<div class="col-md-offset-8 col-md-4">
   				<label for="filtro">Filtro</label><input name="filtro"  type="text" id="filtro_terminal_ventas"/>
   			</div>
+	  	 </div>
+		 <div class="row">
 	  		<div class="col-md-4" >
 	  			<div id="boleta_terminal_venta">
 	  			
 	  			</div>
 	  			<div id="buttons_container">
-	  				<input type="button" value="Guardar" id="ticket_save_button" /> 
+	  				<input type="button" value="Guardar" id="ticket_save_button" />
+	  				<input type="button" value="Print Invoice" id="ticket_print_button" />
 	  			</div>
 
 	  		</div>
 	  		<div class="col-md-8" id="product_contain">
+		 		<div class="row">
 	  			{% for product in products %}
 	  			<div class="col-md-3 prod_obj_data">
 	    			<div class="thumbnail" >
@@ -32,10 +32,14 @@
 	    			</div>
 	    		</div>
     			{% endfor %}	  			
+	  			</div>
 	  		</div>
   		</div>
 	</div>
 {% endblock %}
 {% block script %}
+	<script src="{% static "project_django/jsPDF-0.9.0rc2/dist/jspdf.amd.min.js" %}"  type="text/javascript" ></script>
+	<script src="{% static "project_django/jsPDF-0.9.0rc2/dist/jspdf.min.js" %}"  type="text/javascript" ></script>
+	<script src="{% static "project_django/jsPDF-0.9.0rc2/dist/jspdf.source.js" %}"  type="text/javascript" ></script>		
 	<script src="{% static "project_django/src/js/terminal_ventas.js" %}" type="text/javascript" ></script>
 {% endblock %}

@@ -2,13 +2,63 @@
 <!DOCTYPE html>
 <html lang="es">
 <header>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="{% static "project_django/bootstrap_3_dist/css/bootstrap.min.css" %}" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="{% static "project_django/src/css/mejorando.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "project_django/src/css/terminal_venta.css" %}">	
+
+
 {% block links %}
 {% endblock %}
 
 </header>
 <body>
+	<div>
+	{% block menu_level1 %}
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-left">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle navbar-brand"data-toggle="dropdown" 
+							role="button" aria-expanded="false">Terminal Ventas<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="{% url 'terminal:terminal-view' %}">Terminal</a></li>
+			              <li class="dropdown-submenu">
+			                <a tabindex="-1" href="#">Pedidos</a>
+			                <ul class="dropdown-menu">
+			                  <li><a tabindex="-1" href="{% url 'terminal:terminal-orden' %}">Ordenes</a></li>
+			                </ul>
+			              </li>						
+			              </ul>
+					</li>
+					
+					<li>
+						<a href="#" class="dropdown-toggle navbar-brand"data-toggle="dropdown" 
+							role="button" aria-expanded="false">Productos<span class="caret"></span></a>
+						  <ul class="dropdown-menu" role="menu">
+							  <li class="dropdown-submenu">
+				                <a tabindex="-1" href="#">Productos</a>
+				                <ul class="dropdown-menu">
+				                  <li>						
+				                  	<a tabindex="-1" href="{% url 'terminal:product-list' %}">Editar</a>
+				                  	<a tabindex="-1" href="{% url 'terminal:product-add' %}">Crear</a>
+								  </li>
+				                </ul>
+				              </li>						
+			              </ul>
+						
+					</li>
+
+				</ul>
+			</div>
+			
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	{% endblock %}
+	</div>
 	<div>
 	{% block level1 %}
 	{% endblock %}

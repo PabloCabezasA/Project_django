@@ -11,6 +11,8 @@ $(document).ready(function(){
 	$('#add_more').click(function() { 
     	cloneMore('#book-', 'autor_autor_obras_set');
     });	
+
+	$('input[readonly = readonly]').addClass('inp_readonly')
 });
 
 function texto_italico(){

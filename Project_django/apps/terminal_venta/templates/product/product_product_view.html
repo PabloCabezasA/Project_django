@@ -3,10 +3,27 @@
 	<div class="container-fluid">
   		<div class="row">
 	  		<div class="col-md-offset-3 col-md-6 col-md-offset-3">
-       			    <form action="." method="POST" enctype="multipart/form-data">
+       			    <form action="." method="POST" role="form" enctype="multipart/form-data">
    			          {% csrf_token %}
-                      {{ form.as_p }}			
-                      <input type="submit" value="Submit">
+					  <div class="form-group">
+						<label for="active">Activo</label>
+						{{ form.active }}						
+					  </div>
+					  <div class="form-group">
+						<label for="name">Nombre</label>
+							{{ form.name }}
+						<label for="type">Tipo</label>						
+						{{ form.type }}
+						<label for="code">Codigo</label>						
+						{{ form.code }}
+						<label for="price_sale">Precio Venta</label>						
+						{{ form.price_sale }}
+						<label for="qty_available">QTY</label>						
+						{{ form.qty_available }}
+						<label for="model_pic">Imagen</label>						
+						{{ form.model_pic }}						
+					  </div>
+                      <input type="submit" class="btn btn-primary btn-md" value="Submit">
                     </form>
   		   </div>
 	</div>	
