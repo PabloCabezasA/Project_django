@@ -26,7 +26,8 @@
 	      			  <img src="{{ product.model_pic.url }}" alt="No Photo" class="img-thumbnail"  style="width:180px;height:130px">
       					<div class="caption">
         					<label>{{ product.name }}</label> 
-        					<label>{{ product.code }}</label></br>
+        					<input type='hidden' value="{{ product.id }}" id="product_ian" readonly="readonly" />
+        					<label>{{ product.code }}</label></br>        					
         					<label>Precio: </label><label>{{ product.price_sale }}</label>        					
       					</div>
 	    			</div>
@@ -38,8 +39,5 @@
 	</div>
 {% endblock %}
 {% block script %}
-	<script src="{% static "project_django/jsPDF-0.9.0rc2/dist/jspdf.amd.min.js" %}"  type="text/javascript" ></script>
-	<script src="{% static "project_django/jsPDF-0.9.0rc2/dist/jspdf.min.js" %}"  type="text/javascript" ></script>
-	<script src="{% static "project_django/jsPDF-0.9.0rc2/dist/jspdf.source.js" %}"  type="text/javascript" ></script>		
 	<script src="{% static "project_django/src/js/terminal_ventas.js" %}" type="text/javascript" ></script>
 {% endblock %}

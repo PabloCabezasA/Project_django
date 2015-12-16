@@ -35,12 +35,14 @@ $(document).ready(function(){
 			})
 			d_ticket['name'] = tck[0]
 			d_ticket['code'] = tck[1]
+			d_ticket['id'] = $(this).find('input#product_ian').val()			
 			d_ticket['qty'] = $($(this).find('input#qty_id')).val()
 			d_ticket['amount_total'] = $($(this).find('input.price_product_ticket')).val()
 			d_ticket['price_unit'] = $($(this).find('input#prc_unit')).val()						
 			list_ticket.push(d_ticket)
 		});
-		send_to_server(list_ticket)
+		json_ticket = clearJson(list_ticket)
+		send_to_server(json_ticket)
 	});
 
 	$('#ticket_print_button').click(function(){
@@ -134,12 +136,30 @@ $(document).ready(function(){
     	$("#pos-sale-ticket-invoice").printMe();		
 	});	
 	
+
 	$('.order_line').change(function(){
 		onchange_order_line(this)
 	});
 	
 
 });
+function clearJson(list_ticket){
+	var ticket = {
+					name : Math.floor((Math.random() * 9999999) + 1000000),
+					date_order : new Date().toJSON().slice(0,10),
+					amount_total : 0,
+					list : []
+	}
+	for (line in list_ticket){
+		ticket.amount_total+= parseFloat(list_ticket[line].amount_total)
+		ticket.list.push({product_id: parseInt(list_ticket[line].id),
+						 qty: parseInt(list_ticket[line].qty),
+						 price_unit: parseFloat(list_ticket[line].price_unit),
+						 amount_total: parseFloat(list_ticket[line].amount_total)})
+	}
+	return JSON.stringify(ticket)
+}
+
 
 function edit_ticket(){
     var $check = $('input:checkbox:checked.check_table').map(function () {
@@ -158,6 +178,7 @@ function find_ticket_in(list_product){
 				"<label id='qty_id'>Cta</label> "+
 				"<input type='text' id='qty_id' style='width: 40px;' value='1'/>"+
 				"<input type='hidden' id='prc_unit' value='"+list_product[3]+"'/>"+
+				"<input type='hidden' id='product_ian' value='"+list_product[4]+"'/>"+				
 				"<label id='sg'>$</label> "+
 				"<input type='text' class='price_product_ticket' value='"+list_product[3]+"'/>"+
 				"</div>"					
@@ -186,7 +207,7 @@ function valid_exist(id_ticket){
 
 function send_to_server(tickets){
 	$.ajax({
-		data: {'list':JSON.stringify(tickets)}, 
+		data: tickets, 
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
 			console.log("An error has occurred: " + textStatus);
 		}, 
@@ -242,9 +263,11 @@ function change_amount_total(){
 function pauseAppendTicket(args){
 	var product = $(args).find('label')
 	var list_product = []
+	var id = $(args).find('input#product_ian').val()
 	$.each(product, function(){
 		list_product.push($(this).text())
 	});
+	list_product.push(parseInt(id))
 	find_ticket_in(list_product)	
 }
 
