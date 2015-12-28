@@ -45,13 +45,52 @@
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
 }
-#boleta_terminal_venta {
-	background-color: white;
-	min-width: 400px;
-	min-height: 600px;
-	border: 1px solid gray;
-	
+
+.ticket-content{
+    border: 0px solid;
+    min-width: 375px;
+    max-height: 50px;
 }
 
-#pos-sale-ticket-invoice.table
+.ticket-qty-total{
+    float: right;
+}
 
+.thumbnail-product-ticket{
+    max-height:220px
+    
+}
+.thumbnail-product-ticket > div{
+    max-height: 60px;
+}
+
+.thumbnail-product-ticket > div > label{
+    margin-top: -3px;
+    font-size:13px;
+    height:15px;
+}
+
+
+.thumbnail-product-ticket > div >:first-child{
+    color:red;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display:block;
+}
+
+.thumbnail-product-ticket > div >:nth-child(3){
+    color:red;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display:block;
+}
+
+.filter-panel{
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    padding: 5px;
+    padding-top: 10px;
+    margin-top : -22px;
+}

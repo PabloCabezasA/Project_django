@@ -1,32 +1,22 @@
 $(document).ready(function(){		 
 	$("#pos-sale-ticket-invoice").html()
-
-	$('#filtro_terminal_ventas').change(function(){
-		var product = $('#filtro_terminal_ventas').val()
-		$('#product_contain').html('')
-	    $.get('', {'filter': product}, function(data){
-	        $.each(data, function() {	        		
-        		cont = "<div class='col-md-3 prod_obj_data'>" +
-        				"<div class='thumbnail'>" +
-        			 	"<img src='/media/"+this['model_pic']+"' alt='No Photo' class='img-thumbnail' style='width:180px;height:130px'>"+ 
-        				"<div class='caption'>" +
-    					"<label>"+this['name'] +"</label> "+ 
-    					"<label>"+this['code'] +"</label></br><label>Precio: </label>"+
-    					"<label>"+this['price_sale']+"</label>"+        					        				
-        				"</div> </div> </div>"         				        				        	    
-    			$('#product_contain').append(cont)
-	        })	
-	        $('#product_contain').find('div.prod_obj_data').attr('onclick', 'pauseAppendTicket(this);');
-	    });					
-	});
+	$("#button-ticket-next").hide()
+	$("#ticket_print_button").hide()
 	
 	$('.prod_obj_data').click(function(){
 		pauseAppendTicket(this)
 	});
 	
+	$("#button-ticket-next").click(function(){
+		$("#button-ticket-next").hide()
+		$("#ticket_save_button").val('Guardar')
+		$("#ticket_print_button").hide()
+		$('#boleta_terminal_venta').empty()
+	})
+
 	$('#ticket_save_button').click(function(){
 		list_ticket = []
-		ticket = $('#boleta_terminal_venta').find('div')
+		ticket = $('#boleta_terminal_venta').find('div').not('.ticket-qty-total')
 		$.each(ticket,function (){
 			tck = []
 			d_ticket = {}
@@ -141,23 +131,42 @@ $(document).ready(function(){
 		onchange_order_line(this)
 	});
 	
-
+	$('#filtro_terminal_ventas').change(function(){
+		var product = $('#filtro_terminal_ventas').val()
+		$('#product_contain').html('')
+	    $.get('', {'filter': product}, function(data){
+	        $.each(data, function() {	        		
+        		cont = "<div class='col-md-3 prod_obj_data'>" +
+        				"<div class='thumbnail'>" +
+        			 	"<img src='/media/"+this['model_pic']+"' alt='No Photo' class='img-thumbnail' style='width:180px;height:130px'>"+ 
+        				"<div class='caption'>" +
+    					"<label>"+this['name'] +"</label> "+ 
+    					"<label>"+this['code'] +"</label><label>Precio: </label>"+
+    					"<label>"+this['price_sale']+"</label>"+        					        				
+        				"</div> </div> </div>"         				        				        	    
+    			$('#product_contain').append(cont)
+	        })	
+	        $('#product_contain').find('div.prod_obj_data').attr('onclick', 'pauseAppendTicket(this);');
+	    });					
+	});
 });
+
 function clearJson(list_ticket){
 	var ticket = {
 					name : Math.floor((Math.random() * 9999999) + 1000000),
 					date_order : new Date().toJSON().slice(0,10),
 					amount_total : 0,
-					list : []
+					lines : []
 	}
 	for (line in list_ticket){
 		ticket.amount_total+= parseFloat(list_ticket[line].amount_total)
-		ticket.list.push({product_id: parseInt(list_ticket[line].id),
+		ticket.lines.push({product_id: parseInt(list_ticket[line].id),
 						 qty: parseInt(list_ticket[line].qty),
 						 price_unit: parseFloat(list_ticket[line].price_unit),
 						 amount_total: parseFloat(list_ticket[line].amount_total)})
 	}
-	return JSON.stringify(ticket)
+	ticket.lines = ticket.lines 
+	return ticket
 }
 
 
@@ -172,15 +181,15 @@ function find_ticket_in(list_product){
 	var id_ticket = 'ticket_'+list_product[0].replace(/\s+/g, '')+list_product[1].replace(/\s+/g, '')
 	var exist = valid_exist(id_ticket)
 	if (!exist){
-		cont = "<div id='ticket_"+list_product[0].replace(/\s+/g, '')+list_product[1].replace(/\s+/g, '')+"'>" +
+		cont = "<div class=\"ticket-content\" id='ticket_"+list_product[0].replace(/\s+/g, '')+list_product[1].replace(/\s+/g, '')+"'>" +
 				"<label>"+list_product[0]+"</label> " +
-				"<label>"+list_product[1]+"</label> "+
-				"<label id='qty_id'>Cta</label> "+
+				"<label>"+list_product[1]+"</label></br> "+
+				"<div class=\"ticket-qty-total\"><label id='qty_id'>Cta</label> "+
 				"<input type='text' id='qty_id' style='width: 40px;' value='1'/>"+
 				"<input type='hidden' id='prc_unit' value='"+list_product[3]+"'/>"+
 				"<input type='hidden' id='product_ian' value='"+list_product[4]+"'/>"+				
 				"<label id='sg'>$</label> "+
-				"<input type='text' class='price_product_ticket' value='"+list_product[3]+"'/>"+
+				"<input type='text' class='price_product_ticket' value='"+list_product[3]+"'/></div>"+
 				"</div>"					
 				ticket = $('#boleta_terminal_venta'+' #ticket_'+list_product[0])
 				$('#boleta_terminal_venta').append(cont)
@@ -205,25 +214,38 @@ function valid_exist(id_ticket){
 	
 }
 
+function getCookie(c_name){
+    if (document.cookie.length > 0)
+    {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1)
+        {
+            c_start = c_start + c_name.length + 1;
+            c_end = document.cookie.indexOf(";", c_start);
+            if (c_end == -1) c_end = document.cookie.length;
+            return unescape(document.cookie.substring(c_start,c_end));
+        }
+    }
+    return "";
+ }
+
 function send_to_server(tickets){
 	$.ajax({
-		data: tickets, 
+		data: JSON.stringify(tickets), 
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
 			console.log("An error has occurred: " + textStatus);
+			console.log(XMLHttpRequest.responseText);
+		    $("#button-ticket-next").show()
+		    $("#ticket_print_button").show()
 		}, 
 		success: function(data, textStatus, XMLHttpRequest) {
-			try
-			{
-				console.log(data)
-				updatePage(JSON.parse(data));
-			}
-			catch(error)
-			{
-			console.log("There was an error updating your"+ error);
-			}
+			$("#button-ticket-next").show()
+			$("#ticket_save_button").val('Editar')
+			$("#ticket_print_button").show()
 		}, 
 		type: "POST", 
-		url: "http://localhost:8000/terminal/orderSerializer/"});
+		headers: { "X-CSRFToken": getCookie("csrftoken") },
+		url: "http://localhost/terminal/orderSerializer/"});
 }
 
 function onchange_order_line(args){
@@ -283,5 +305,5 @@ function get_product_id(name, code){
 		success: function(data, textStatus, XMLHttpRequest) {
 			console.log(data)
 		}
-	});
+	});	
 } 

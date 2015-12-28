@@ -71,14 +71,32 @@ class ProductSerializerDetail(APIView):
 class OrderLineSerializer(serializers.ModelSerializer):
     class Meta():
         model = Terminal_order_line
+        fields = (
+            'product_id', 'qty', 'price_unit', 'amount_total'
+        )
+        extra_kwargs = {
+            "id": {
+                "read_only": False,
+                "required": False,
+            },
+        }
+        
 
 class OrderSerializer(serializers.ModelSerializer):
     lines = OrderLineSerializer(many=True)
     class Meta():
         model = Terminal_order
         fields = (
-            'name', 'date_order', 'amount_total','lines'
+            'name', 'date_order', 'amount_total', 'lines'
         )
+
+    def create(self, validated_data):
+        lines_data = validated_data.pop('lines')
+        ticket = Terminal_order.objects.create(**validated_data)
+        for line_data in lines_data:
+            Terminal_order_line.objects.create(order_id=ticket, **line_data)
+        return ticket
+        
     
 class OrderSerializerList(APIView):
     """
@@ -90,11 +108,14 @@ class OrderSerializerList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = OrderSerializer(data=request.data)
-        if serializer.is_valid():
+        req_data = request.data.copy()
+        req_data = simplejson.loads(req_data.keys()[0])        
+        serializer = OrderSerializer(data = req_data) 
+        print serializer.initial_data 
+        if serializer.is_valid():            
+            print serializer.validated_data            
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

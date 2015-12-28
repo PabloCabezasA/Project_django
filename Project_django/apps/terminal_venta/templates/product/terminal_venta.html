@@ -2,19 +2,24 @@
 {% load static %}
 {% block level1 %}
 	<div class="container-fluid">
-  		<div class="row">
+  		<div class="row panel filter-panel">
   			<div class="col-md-offset-8 col-md-4">
   				<label for="filtro">Filtro</label><input name="filtro"  type="text" id="filtro_terminal_ventas"/>
   			</div>
 	  	 </div>
 		 <div class="row">
 	  		<div class="col-md-4" >
-	  			<div id="boleta_terminal_venta">
-	  			
+	  			<div class="panel panel-default">
+		  			<div id="boleta_terminal_venta" class="panel-body"></div>
+		  		    <div class="panel-footer">Total:</div>
+
 	  			</div>
 	  			<div id="buttons_container">
-	  				<input type="button" value="Guardar" id="ticket_save_button" />
-	  				<input type="button" value="Print Invoice" id="ticket_print_button" />
+	  				<input type="button" class="btn btn-primary" value="Guardar" id="ticket_save_button" />
+	  				<input type="button" class="btn btn-success" value="Continuar" id="button-ticket-next" />
+	  				<input type="button" class="btn btn-default" value="Print Invoice" id="ticket_print_button" />
+
+
 	  			</div>
 
 	  		</div>
@@ -22,13 +27,13 @@
 		 		<div class="row">
 	  			{% for product in products %}
 	  			<div class="col-md-3 prod_obj_data">
-	    			<div class="thumbnail" >
+	    			<div class="thumbnail thumbnail-product-ticket" >
 	      			  <img src="{{ product.model_pic.url }}" alt="No Photo" class="img-thumbnail"  style="width:180px;height:130px">
       					<div class="caption">
         					<label>{{ product.name }}</label> 
         					<input type='hidden' value="{{ product.id }}" id="product_ian" readonly="readonly" />
-        					<label>{{ product.code }}</label></br>        					
-        					<label>Precio: </label><label>{{ product.price_sale }}</label>        					
+        					<label>{{ product.code }}</label>       					
+        					<label>Precio: </label><label>{{ product.price_sale }}</label>				
       					</div>
 	    			</div>
 	    		</div>
