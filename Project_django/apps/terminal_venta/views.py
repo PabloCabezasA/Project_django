@@ -1,11 +1,12 @@
-from Project_django.apps.terminal_venta.models import Product_product, Terminal_order, Terminal_order_line
-from Project_django.apps.terminal_venta import forms
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.contrib import messages
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from django.db.models import Q
 from django.http import HttpResponse
+from Project_django.apps.terminal_venta.models import Product_product, Terminal_order, Terminal_order_line
+from Project_django.apps.terminal_venta import forms
+
 import json
 import simplejson
 import random

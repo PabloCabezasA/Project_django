@@ -14,7 +14,7 @@ def index(request):
         return render_to_response('index_project/index.html',{'respuesta':respuesta,'xml':xml_enviado},context_instance=RequestContext(request))
     return render(request, 'index_project/angular_tuto.html')    
 
-def login(request):
+def user_login(request):
     logout(request)
     username = password = ''
     if request.POST:
@@ -24,8 +24,12 @@ def login(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect('/curso1/')
+                return HttpResponseRedirect('/terminal/')
         else:
             messages.error(request, 'Usuario o Clave incorrecta')
             return render_to_response('login/login.html', context_instance=RequestContext(request))
     return render_to_response('login/login.html', context_instance=RequestContext(request))
+
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/')

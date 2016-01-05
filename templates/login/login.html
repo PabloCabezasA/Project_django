@@ -2,26 +2,44 @@
 <html>
 	<header>
 	  <link href="{% static "project_django/bootstrap_3_dist/css/bootstrap.min.css" %}" rel="stylesheet">    
+	<link rel="stylesheet" type="text/css" href="{% static 'project_django/src/css/login.css' %}">
 	</header>
+	
 	<body>
 	<div class="container-fluid">
-		<div class="row">
-			  <div class="col-md--col-md-12">
-			  		{% if messages %}
+		<div class="row">			
+				<div class=" col-md-12 top-title">
+					<h1 id="title">Terminal de Ventas</h1>
+				</div>
+
+			  <div class="col-md-offset-4 col-md-4 col-md-offset-4">
+			      {% if messages %}
 					<ul class="messages">
 					    {% for message in messages %}
 					    	<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
 					    {% endfor %}
 					</ul>
-					{% endif %}				  
-				  <form action="." method="post">
+				   {% endif %}		
+			      
+			      <div class="box-header">
+						<h2></h2>
+				  </div>
+
+				  <form action="." method="post" id="login-form">
 				  	  {% csrf_token %}
-		    		  <label for="your_name">Usuario: </label>
-		    		  <input type="text" id="username" name="username"  placeholder="Username">
-		    		  <label for="your_name">Pass: </label>
-		    		  <input type="password" id="password" name="password"  placeholder="Username">
-		    		  <input type="submit" value="Ingresar">
+		    		 <div class="form-group">
+			    		  <label for="username">usuario</label></br>
+			    		  <input type="text" class="form-control input-md input-login" id="username" name="username"  placeholder="Username">
+		    		 </div>
+					 <div class="form-group">
+		    		  <label for="password">contraseña</label></br>
+		    		  <input type="password" class="form-control input-md input-login" id="password" name="password"  placeholder="Username">
+		    		 </div>
+		    		 <div>
+		    		  <input type="submit" class="btn btn-primary btn-lg" value="Ingresar" id="input-button-login">
+				  	 </div>
 				  </form>
+			  
 			  </div>			 
 		</div>
 	</div>

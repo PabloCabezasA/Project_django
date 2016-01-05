@@ -1,5 +1,6 @@
 from django.conf.urls import  url
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from Project_django.apps.terminal_venta import models
 from Project_django.apps.terminal_venta import views 
 from Project_django.apps.terminal_venta.serializers import ProductSerializerList, ProductSerializerDetail, OrderSerializerList 
@@ -12,7 +13,7 @@ urlpatterns = [
     url(r'^product_product_list/$', views.ListProductView.as_view(), name='product-list'),
     url(r'^product_product_form/edit/(?P<pk>\d+)/$', views.EditProductView.as_view(), name='product-edit'),
     url(r'^terminal_view/$', 'Project_django.apps.terminal_venta.views.terminal_view', name='terminal-view'),
-    url(r'^terminal_orden/$', views.ListTerminalView.as_view(), name='terminal-orden'),   
+    url(r'^terminal_orden/$', login_required(views.ListTerminalView.as_view()), name='terminal-orden'),   
     url(r'^terminal_orden_form/edit/(?P<pk>\d+)/$', views.UpdateTerminalView.as_view(), name='terminal-orden-edit'),     
     url(r'^snippets/$', ProductSerializerList.as_view()),
     url(r'^snippets/(?P<name>\w+)/(?P<code>\w)/$', ProductSerializerDetail.as_view()),    
