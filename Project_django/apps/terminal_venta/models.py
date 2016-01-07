@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.core.exceptions import ValidationError
 from datetime import datetime
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Product_product(models.Model):
@@ -27,11 +28,13 @@ class Product_product(models.Model):
     def get_product_id(self, code, name):
         prod =self.__class__.objects.get(Q(name=name), Q(code=code))
         return prod
+
     
 class Terminal_order(models.Model):
     name = models.CharField('Nombre', max_length=120, blank=False, unique=True)
     date_order = models.DateField('Fecha Pedido', blank=False)
     amount_total = models.FloatField('Monto Total', blank=False)
+    session_id = models.ForeignKey('Terminal_session')
     class Meta:
         db_table = 'terminal_order'
         ordering = ['-date_order']
@@ -75,3 +78,15 @@ class Terminal_order_line(models.Model):
         res = super(Terminal_order_line, self).clean_fields(exclude)
         return res
 
+
+class Terminal_session(models.Model):
+    name = models.CharField('Nombre', max_length=60)
+    user_id = models.ForeignKey(User)
+    date_start = models.DateField('Fecha Inicio')
+    date_close = models.DateField('Fecha Cierre', blank=True, null=True)
+    state = models.CharField('Estado', choices=(('start','Inicio'),('close','Cerrado')), max_length=5, blank=True)
+    class Meta:
+        db_table = 'terminal_session'
+
+    def get_absolute_url(self):
+        return reverse('terminal:session-add', kwargs={'pk': self.id})

@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from django.db.models import Q
 from django.http import HttpResponse
-from Project_django.apps.terminal_venta.models import Product_product, Terminal_order, Terminal_order_line
+from Project_django.apps.terminal_venta.models import Product_product, Terminal_order, Terminal_order_line, Terminal_session
 from Project_django.apps.terminal_venta import forms
 
 import json
@@ -130,6 +130,7 @@ class ListTerminalView(ListView):
     def get_queryset(self):
         return Terminal_order.objects.all()      
     
+
 class UpdateTerminalView(UpdateView):
     model = Terminal_order
     template_name = 'terminal_orden/terminal_orden_form.html'
@@ -158,3 +159,21 @@ class UpdateTerminalView(UpdateView):
             return redirect(self.object.get_absolute_url())  # assuming your model has ``get_absolute_url`` defined.
         else:
             return self.render_to_response(self.get_context_data(form=form))
+
+
+class AddSession(CreateView):
+    model = Terminal_session
+    template_name = 'session/create_session.html'
+    form_class = forms.Terminal_session_form
+
+    def form_valid(self, form):
+        res = super(AddSession, self).form_valid(form)
+        return res
+
+class ListSession(ListView):
+    model = Terminal_session
+    template_name = 'session/list_session.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Terminal_session.objects.all()

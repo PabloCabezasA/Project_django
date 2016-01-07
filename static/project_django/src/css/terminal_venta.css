@@ -98,3 +98,13 @@
 #menu-principal{
     text-transform: uppercase;
 }
+
+.form-form{
+    border: 1px solid;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+#form-session > div{
+    padding: 5px;
+}

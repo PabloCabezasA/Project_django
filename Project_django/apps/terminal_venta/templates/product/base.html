@@ -25,15 +25,24 @@
 							role="button" aria-expanded="false">Terminal Ventas<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="{% url 'terminal:terminal-view' %}">Terminal</a></li>
-			              <li class="dropdown-submenu">
-			                <a tabindex="-1" href="#">Pedidos</a>
-			                <ul class="dropdown-menu">
-			                  <li><a tabindex="-1" href="{% url 'terminal:terminal-orden' %}">Ordenes</a></li>
-			                </ul>
-			              </li>						
-			              </ul>
+				              <li class="dropdown-submenu">
+				                <a tabindex="-1" href="#">Pedidos</a>
+				                <ul class="dropdown-menu">
+				                  <li><a tabindex="-1" href="{% url 'terminal:terminal-orden' %}">Ordenes</a></li>
+				                </ul>
+				              </li>						
+
+							 <li class="dropdown-submenu">
+				                <a tabindex="-1" href="#">Sesion</a>
+				                <ul class="dropdown-menu">
+				                  <li><a tabindex="-1" href="{% url 'terminal:session-add' %}">Crear</a></li>
+									<li><a tabindex="-1" href="{% url 'terminal:session-list' %}">Editar</a></li>
+				                </ul>
+				              </li>
+
+						</ul>
 					</li>
-					
+
 					<li>
 						<a href="#" class="dropdown-toggle navbar-brand"data-toggle="dropdown" 
 							role="button" aria-expanded="false">Productos<span class="caret"></span></a>
