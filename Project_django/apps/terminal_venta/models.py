@@ -89,4 +89,4 @@ class Terminal_session(models.Model):
         db_table = 'terminal_session'
 
     def get_absolute_url(self):
-        return reverse('terminal:session-add', kwargs={'pk': self.id})
+        return reverse('terminal:session-edit', kwargs={'pk': self.id})

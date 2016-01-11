@@ -16,7 +16,7 @@
 		  			<td>
 		      			<input class="check_table" type="checkbox" value="{{  session.id  }}" />
 		    		</td>
-		  			<td><p>{{session.name}}</p></td>
+		  			<td><a href="{% url 'terminal:session-edit' pk=session.id %}"><p>{{session.name}}</p></a></td>
 		  			<td><p>{{session.user_id}}</p></td>
                     <td><p>{{session.date_start}}</p></td>
                     <td><p>{{session.date_close }}</p></td>

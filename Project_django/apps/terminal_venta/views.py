@@ -15,8 +15,8 @@ import datetime
 def access_session_user(func):
     def validate_session(request, *args,**kwargs):
         session = Terminal_session.objects.filter(user_id = request.user.id, state='start')
-        print session
         if not session:
+            messages.add_message(request, messages.WARNING, 'No puedes iniciar un TPV sin una sesion activa')
             return render_to_response('product/base.html', context_instance=RequestContext(request))
         return func(request, *args, **kwargs)
     return validate_session
@@ -187,3 +187,8 @@ class ListSession(ListView):
 
     def get_queryset(self):
         return Terminal_session.objects.all()
+
+class UpdateSessionView(UpdateView):
+    model = Terminal_session
+    template_name = 'session/create_session.html'
+    form_class = forms.Terminal_session_form

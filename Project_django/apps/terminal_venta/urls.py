@@ -25,4 +25,5 @@ urlpatterns = [
 #sessions URLS
     url(r'^session/add/$', views.AddSession.as_view(), name='session-add'),
     url(r'^session/list/$', views.ListSession.as_view(), name='session-list'),
+    url(r'^session/edit/(?P<pk>\d+)/$', views.UpdateSessionView.as_view(), name='session-edit'),
 ]
