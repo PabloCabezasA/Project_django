@@ -12,6 +12,15 @@ import simplejson
 import random
 import datetime
 # Create your views here.
+def access_session_user(func):
+    def validate_session(request, *args,**kwargs):
+        session = Terminal_session.objects.filter(user_id = request.user.id, state='start')
+        print session
+        if not session:
+            return render_to_response('product/base.html', context_instance=RequestContext(request))
+        return func(request, *args, **kwargs)
+    return validate_session
+
 
 def base_view(request):                        
     return render_to_response('product/base.html', context_instance=RequestContext(request))
@@ -40,6 +49,8 @@ def save_data(request):
             termial_line.save()
     return HttpResponse(simplejson.dumps({'exito':'Orden Creada Correctamente'}), content_type='application/json')
 
+
+@access_session_user
 def terminal_view(request):
     values = {}
     if request.is_ajax():        
@@ -68,8 +79,7 @@ def create_json_response(filter):
         to_json.append(dict)
     return simplejson.dumps(to_json)
 
-
-# vistas basadas en clases de modelo Producto     
+# vistas basadas en clases de modelo Producto
 
 class AddProductView(CreateView):
     template_name = 'product/product_product_view.html'
