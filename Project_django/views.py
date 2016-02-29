@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import render_to_response, HttpResponseRedirect
 from django.template import RequestContext
-from connect.firmador import _entregaFirma
+#from connect.firmador import _entregaFirma
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 xml_token='<?xml version="1.0"?><getToken><item><Semilla>002024309352</Semilla></item>'

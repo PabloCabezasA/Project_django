@@ -1,4 +1,6 @@
-from django.forms import ModelForm
+from django.forms.extras.widgets import SelectDateWidget
+from django import forms
+from django.forms import ModelForm, Form
 from Project_django.apps.terminal_venta.models import Product_product, Terminal_order, Terminal_order_line, Terminal_session
 from django.forms.models import inlineformset_factory
 
