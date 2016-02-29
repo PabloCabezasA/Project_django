@@ -108,3 +108,15 @@
 #form-session > div{
     padding: 5px;
 }
+
+.product-thumbnail-list{
+    max-height: 200px;
+}
+
+.product-thumbnail-list >div> h4{
+    font-size : 15px;
+    text-transform: lowercase;
+    color : black;
+    align : left;
+    font-family: ;
+}

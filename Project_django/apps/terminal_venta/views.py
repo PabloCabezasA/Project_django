@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.http import HttpResponse
 from Project_django.apps.terminal_venta.models import Product_product, Terminal_order, Terminal_order_line, Terminal_session
 from Project_django.apps.terminal_venta import forms
-
+from django.core.urlresolvers import reverse
 import json
 import simplejson
 import random
@@ -60,6 +60,7 @@ def terminal_view(request):
     else:
         list_product = Product_product.objects.filter(active = True, qty_available__gt = 0).order_by('name')
     values['products'] = list_product
+    values['session_id'] = Terminal_session.objects.filter(user_id = request.user.id, state='start')[0]
     return render_to_response('product/terminal_venta.html', values, context_instance=RequestContext(request))
 
 def create_json_response(filter):
@@ -92,6 +93,10 @@ class ListProductView(ListView):
     model = Product_product
 
     def get_queryset(self):
+        print self.request.GET
+        name = self.request.GET.get('filtro')
+        if name:
+            return Product_product.objects.filter(Q(name__contains = name))
         return Product_product.objects.all()
 
 
@@ -185,10 +190,29 @@ class ListSession(ListView):
     template_name = 'session/list_session.html'
     paginate_by = 10
 
-    def get_queryset(self):
-        return Terminal_session.objects.all()
-
 class UpdateSessionView(UpdateView):
     model = Terminal_session
     template_name = 'session/create_session.html'
     form_class = forms.Terminal_session_form
+
+
+
+def close_session(request, pk=None):
+    if pk is not None:
+        session = Terminal_session.objects.get(pk=pk)
+        if not session.order_ids.all():
+            print 'None'
+
+        if not session.order_ids.all():
+            qty = 0
+            amount = 0
+            print session.id
+            print session.order_ids
+            for order in session.order_ids.all():
+                qty +=1
+                amount += order.amount_total
+            session.qty_total = qty
+            session.amount_total= amount
+            session.save()
+        form = forms.Terminal_session_form(instance=session)
+    return redirect('terminal:session-edit', pk=session.pk)

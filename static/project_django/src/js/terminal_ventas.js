@@ -17,6 +17,7 @@ $(document).ready(function(){
 	$('#ticket_save_button').click(function(){
 		list_ticket = []
 		ticket = $('#boleta_terminal_venta').find('div').not('.ticket-qty-total')
+        session_id = $('#session-id').val()
 		$.each(ticket,function (){
 			tck = []
 			d_ticket = {}
@@ -31,7 +32,7 @@ $(document).ready(function(){
 			d_ticket['price_unit'] = $($(this).find('input#prc_unit')).val()						
 			list_ticket.push(d_ticket)
 		});
-		json_ticket = clearJson(list_ticket)
+		json_ticket = clearJson(list_ticket, session_id)
 		send_to_server(json_ticket)
 	});
 
@@ -151,11 +152,12 @@ $(document).ready(function(){
 	});
 });
 
-function clearJson(list_ticket){
+function clearJson(list_ticket, session_id){
 	var ticket = {
 					name : Math.floor((Math.random() * 9999999) + 1000000),
 					date_order : new Date().toJSON().slice(0,10),
 					amount_total : 0,
+					session_id : session_id,
 					lines : []
 	}
 	for (line in list_ticket){
