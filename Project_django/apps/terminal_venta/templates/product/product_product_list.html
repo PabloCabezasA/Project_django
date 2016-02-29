@@ -1,17 +1,34 @@
 {% extends "product/base.html" %}
+{% load staticfiles %}
 {% block level1 %}
-	<div class="container-fluid">
-  		<div class="row">
-	 			{% for product in product_product_list %}
-	 			<div class="col-md-3">
-	   			<div class="thumbnail" onclick="location.href='{% url 'terminal:product-edit' pk=product.id %}';">	
-	     			  <img src="{{ product.model_pic.url }}" alt="No Photo" class="img-thumbnail img-responsive"  style="width:225px;height:190px" width="225" height="190">
-	    					<div class="caption">
-	      					<h4>{{ product.name }}{{ product.code }}</h4>        					
-	    					</div>
-		   			</div>
-		   		</div>
-	  			{% endfor %}	  			
-  		</div>
+	<div class="container-fluid" ng-app="product-product">
+
+  		<div class="row" ng-controller="product-controller">
+			<div class="col-md-offset-8 col-md-4">
+				<form action="{% url 'terminal:product-list-filter' %}" method="get">
+					{% csrf_token %}
+					<input name="filtro" my-enter="get_prodcut()" ng-model="filterProduct"
+					   type="text" class="input-md" style="float:right;color:gray;"/>
+				</form>
+			</div>
+			<div class="col-md-12">
+					{% for product in product_product_list %}
+					<div class="col-md-2">
+					<div class="thumbnail product-thumbnail-list" onclick="location.href='{% url 'terminal:product-edit' pk=product.id %}';">
+						<img src="{{ product.model_pic.url }}" alt="No Photo" class="img-thumbnail img-responsive"
+							   style="width:160px;height:150px">
+								<div class="caption">
+									<h4>[{{ product.code }}]{{ product.name }}</h4>
+								</div>
+					</div>
+					</div>
+					{% endfor %}
+  			</div>
+		</div>
+
 	</div>
+{% endblock %}
+{% block script %}
+<script type="text/javascript" src="{% static 'project_django/src/js/angular.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'project_django/src/js/controller.js' %}"></script>
 {% endblock %}

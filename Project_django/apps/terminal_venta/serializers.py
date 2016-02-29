@@ -87,7 +87,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta():
         model = Terminal_order
         fields = (
-            'name', 'date_order', 'amount_total', 'lines'
+            'name', 'date_order', 'amount_total', 'session_id', 'lines'
         )
 
     def create(self, validated_data):

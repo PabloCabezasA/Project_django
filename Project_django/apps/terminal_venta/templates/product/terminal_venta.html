@@ -3,9 +3,16 @@
 {% block level1 %}
 	<div class="container-fluid">
   		<div class="row panel filter-panel">
-  			<div class="col-md-offset-8 col-md-4">
+
+			<div class="col-md-4">
+  				<label for="filtro">Sesion : {{ session_id.name }}</label>
+				<input  type="hidden" id="session-id" value="{{ session_id.id }}"/>
+  			</div>
+
+  			<div class="col-md-offset-4 col-md-4">
   				<label for="filtro">Filtro</label><input name="filtro"  type="text" id="filtro_terminal_ventas"/>
   			</div>
+
 	  	 </div>
 		 <div class="row">
 	  		<div class="col-md-4" >
@@ -18,8 +25,6 @@
 	  				<input type="button" class="btn btn-primary" value="Guardar" id="ticket_save_button" />
 	  				<input type="button" class="btn btn-success" value="Continuar" id="button-ticket-next" />
 	  				<input type="button" class="btn btn-default" value="Print Invoice" id="ticket_print_button" />
-
-
 	  			</div>
 
 	  		</div>

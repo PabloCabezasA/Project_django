@@ -43,6 +43,10 @@ Terminal_order_line_formset = inlineformset_factory(parent_model=Terminal_order,
                                                     )
 
 class Terminal_session_form(ModelForm):
+    def __init__(self, *args, **kwargs ):
+        super(Terminal_session_form, self).__init__(*args,**kwargs)
+        for key in self.fields.keys():
+            self.fields[key].widget.attrs = {'class':'form-control'}
     class Meta:
         model = Terminal_session
         fields = "__all__"
