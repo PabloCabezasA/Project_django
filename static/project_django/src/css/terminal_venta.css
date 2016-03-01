@@ -126,6 +126,65 @@ a.dropdown-toggle{
     font-size : 15px;
     text-transform: lowercase;
     color : black;
-    align : left;
+    text-align: left;
     font-family: ;
+}
+
+.check-table {
+    text-align : center; 
+    vertical-align: bottom;
+    min-width: 30px;
+    width:30px;
+}
+
+.table > tbody> tr{    
+    line-height: 5px;
+    min-height: 5px;
+    height: 10px;
+}
+
+.table > tbody> tr> td{    
+    padding: 5px;
+    vertical-align: bottom;
+}
+
+.table > tr > td {    
+    padding: 5px;
+    vertical-align: bottom;
+    background-color: red;
+}
+
+.table > tr {    
+    line-height: 5px;
+    min-height: 5px;
+    height: 10px;
+    background-color: red;
+}
+
+.product-box-kanban{
+    max-height: 150px;
+    height: 130px;    
+    border: 1px solid black;
+    padding: 3px;
+}
+
+.product-box-kanban > table{
+    max-height: 150px;
+    height: 123px;    
+    margin: 0;
+    padding: 0;
+    max-width: 385px;
+    width: 385px;
+}
+
+.product-box-kanban  ul  li{
+    margin: 0;
+    padding: 0;
+    display: inline;
+    line-height: 10px;
+    text-align: left;
+}
+
+.product-box-kanban  ul  li h5{
+    color: #008080;
 }

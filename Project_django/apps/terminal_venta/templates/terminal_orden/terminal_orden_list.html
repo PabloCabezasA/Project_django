@@ -11,8 +11,8 @@
 		  		<th>Total</th>		  		
 			  {% for orden in terminal_order_list %}
 		  		<tr>
-		  			<td>  			
-		      			<input class="check_table" type="checkbox" value="{{  orden.id  }}" />    		
+		  			<td class="check-table">		
+		      			<input type="checkbox" value="{{  orden.id  }}" />    		
 		    		</td>
 		  			<td><p><a href="{% url 'terminal:terminal-orden-edit' pk=orden.id %}"><p>{{orden.name}}</p></a></p></td>  			
 		  			<td><p>{{orden.date_order}}</p></td>  			
