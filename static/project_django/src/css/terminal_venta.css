@@ -97,6 +97,15 @@
 
 #menu-principal{
     text-transform: uppercase;
+    font-family: Georgia, serif;
+}
+
+a.navbar-brand{
+    font-size: 16px;
+}
+
+a.dropdown-toggle{
+ font-size: 16px;   
 }
 
 .form-form{
