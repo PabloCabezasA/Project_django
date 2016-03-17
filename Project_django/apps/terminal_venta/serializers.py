@@ -44,10 +44,21 @@ class ProductSerializerDetail(APIView):
         else:
             return False 
 
-    def get(self, request, pk=None,name=None,code=None, format=None):
+    def get_product_object(self, name):
+        products = Product_product.objects.filter(name__icontains=name) 
+        if products:
+            return products
+        else:
+            raise Http404
+
+    def get(self, request, pk=None, name=None, code=None, format=None):
         if name and code:
             id = self.get_product_id(name, code)
             return Response(simplejson.dumps({ 'id' :id}))
+        elif name:
+            products = self.get_product_object(name)
+            serializer = ProductSerializer(products, many=True)
+            return Response(serializer.data)            
         elif pk:
             product = self.get_object(pk)
             serializer = ProductSerializer(product)

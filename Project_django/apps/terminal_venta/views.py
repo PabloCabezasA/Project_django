@@ -91,6 +91,7 @@ class AddProductView(CreateView):
 class ListProductView(ListView):
     template_name = 'product/product_product_list.html'
     model = Product_product
+    paginate_by = 9
 
     def get_queryset(self):
         print self.request.GET
@@ -195,15 +196,13 @@ class UpdateSessionView(UpdateView):
     template_name = 'session/create_session.html'
     form_class = forms.Terminal_session_form
 
-
-
 def close_session(request, pk=None):
     if pk is not None:
         session = Terminal_session.objects.get(pk=pk)
         if not session.order_ids.all():
             print 'None'
 
-        if not session.order_ids.all():
+        if session.order_ids.all():
             qty = 0
             amount = 0
             print session.id

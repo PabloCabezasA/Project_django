@@ -85,10 +85,13 @@ class Terminal_session(models.Model):
     date_start = models.DateField('Fecha Inicio')
     date_close = models.DateField('Fecha Cierre', blank=True, null=True)
     state = models.CharField('Estado', choices=(('start','Inicio'),('close','Cerrado')), max_length=5, blank=True)
-    qty_total = models.PositiveIntegerField('Cantidad de boletas', max_length=8, blank=True, null=True)
+    qty_total = models.PositiveIntegerField('Cantidad de boletas', blank=True, null=True)
     amount_total = models.FloatField('Monto Total', max_length=10, blank=True, null=True)
     class Meta:
         db_table = 'terminal_session'
 
     def get_absolute_url(self):
         return reverse('terminal:session-edit', kwargs={'pk': self.id})
+
+    def __str__(self):
+        return self.name

@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^terminal_orden_form/edit/(?P<pk>\d+)/$', views.UpdateTerminalView.as_view(), name='terminal-orden-edit'),     
 #Serializer URLS
     url(r'^snippets/$', ProductSerializerList.as_view()),
+    url(r'^snippets/(?P<name>\w+)/$', ProductSerializerDetail.as_view()),    
     url(r'^snippets/(?P<name>\w+)/(?P<code>\w)/$', ProductSerializerDetail.as_view()),    
     url(r'^snippets/(?P<pk>[0-9]+)/$', ProductSerializerDetail.as_view()),
     url(r'^orderSerializer/$', OrderSerializerList.as_view()),

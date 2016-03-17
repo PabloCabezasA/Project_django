@@ -82,21 +82,23 @@
 	{% endblock %}
 	</div>
 	<div>
-	{% if messages %}
-		<ul class="messages">
-			{% for message in messages %}
-				<li>{{ message }}</li>
+	{% block messages %}
+		{% if messages %}
+			<ul class="messages">
+				{% for message in messages %}
+					<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+
+		{% if form.errors %}
+		<ul>
+			{% for key, value in form.errors.items %}
+			{% if key != '__all__' %}{{ key }} {% endif %}{{ value }}
 			{% endfor %}
 		</ul>
-	{% endif %}
-
-	{% if form.errors %}
-	<ul>
-		{% for key, value in form.errors.items %}
-		{% if key != '__all__' %}{{ key }} {% endif %}{{ value }}
-		{% endfor %}
-	</ul>
-	{% endif %}
+		{% endif %}
+	{% endblock %}
 
 	{% block level1 %}
 	{% endblock %}

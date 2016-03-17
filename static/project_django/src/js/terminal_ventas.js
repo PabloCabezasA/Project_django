@@ -1,12 +1,12 @@
 $(document).ready(function(){		 
 	$("#pos-sale-ticket-invoice").html()
 	$("#button-ticket-next").hide()
-	$("#ticket_print_button").hide()
-	
+	$("#ticket_print_button").hide()	
+
 	$('.prod_obj_data').click(function(){
 		pauseAppendTicket(this)
 	});
-	
+
 	$("#button-ticket-next").click(function(){
 		$("#button-ticket-next").hide()
 		$("#ticket_save_button").val('Guardar')
@@ -37,101 +37,22 @@ $(document).ready(function(){
 	});
 
 	$('#ticket_print_button').click(function(){
-		var my_obj = [
-				{
-					 price_subtotal: 4118,
-					 price_unit: 2059,
-					 product_code: "1100003503502",
-					 product_name: "FILTRO MEZCLA SR420 FS160 220",
-					 qty: 2,
-					 lotsplit_id: '34343',
-					 discount : 0
-			 	},
-				{
-					 price_subtotal: 4118,
-					 price_unit: 2059,
-					 product_code: "1100003503502",
-					 product_name: "FILTRO MEZCLA SR420 FS160 220",
-					 qty: 2,
-					 lotsplit_id: '34343',
-					 discount : 0
-				 }
-				 ]
-		var ticket = {
-			name  			: 'Fact0042307',
-		    day 			: '27',
-		    month 			: 'Noviembre',
-		    year			: '15',
-		    partner_name	: 'SERGIO VALDEBENITO BELMAR',
-		    partner_vat		: '10.650.539-k',
-		    partner_street	: 'CONDOR NORTE 269',
-		    partner_city	: 'PANGUIPULLI',
-		    partner_giro	: 'SERVICIO FERESTAL',
-		    partner_phone	: '',
-		    date	: '2015-01-11',
-		    amount_text : 'SEISCIENTOS CINCUENTA Y CUATRO MIL PESOS',
-		    amount_untaxed : '104.420',
-		    amount_tax : '654.000',
-		    amount_total : '654.000',
-		    lines: my_obj,
-		    pay_name : 'EFECTIVO POS'
-		}
-
-    	$("#pos-sale-ticket-invoice").empty()
-	    	var t1 = "<div style=\"margin-top:95px;margin-left:525px;font-family:Courier;font-size:13px;\"><span height='75'>"+ ticket.name +"</span></div>\
-					  <div style=\"margin-top:60px;margin-left:525px;height:30px;font-family:Courier;font-size:13px;\">\
-					  	<span>" + ticket.day +"</span><span style=\"margin-left:30px;\">"+ ticket.month +"</span><span style=\"margin-left:30px;\">" + ticket.year +"</span>\
-					  </div>\
-					  <div style=\"height:30px;font-family:Courier;font-size:13px;margin-left:110px;margin-top:0px;\">\
-					  	<span style=\"display:inline-block;width:360px;\">" + ticket.partner_name +"</span>\
-					  	<span style=\"margin-left:110px;\">"+ ticket.partner_vat +"</span>\
-					  </div>\
-					  <div style=\"height:20px;font-family:Courier;font-size:13px;margin-left:110px;\">\
-					  	<span style=\"display:inline-block;width:360px;\">"+ ticket.partner_street +"</span>\
-					  	<span style=\"margin-left:110px;\"  >"+ ticket.partner_city +"</span>\
-					  </div>\
-					  <div style=\"height:20px;margin-top:0px;margin-left:110px;\">\
-					  	<span style=\"font-family:Courier;font-size:13px;\">"+ ticket.pay_name +"</span>\
-					  </div>\
-					  <div style=\"height:20px;margin-top:50px;margin-left:180px;\">\
-					  	<span style=\"font-family:Courier;font-size:13px;\">Vendedor:"+ ticket.pay_name +"</span>\
-					  </div>"
-
-
-	    	var t2 = '<div style=\"height:480px;width:750px;margin-top:50px;\"><table border=\"1\" style=\"margin-left:40px;\" >'
-			for (line in  ticket.lines){
-				cont ="<tr>\
-						<td style=\"font-family:Courier;font-size:10px;\" width=\"50\" align=\"left\">"+ticket.lines[line].qty+"</td>\
-						<td style=\"font-family:Courier;font-size:10px;\" width=\"120\" align=\"left\">"+ticket.lines[line].product_code+"</td>\
-						<td style=\"font-family:Courier;font-size:10px;\" width=\"350\" align=\"left\">"+ticket.lines[line].product_name+"</td>\
-						<td style=\"font-family:Courier;font-size:10px;\" width=\"30\" align=\"left\">"+ticket.lines[line].discount+"</td>\
-						<td style=\"font-family:Courier;font-size:10px;margin-left:5px;\" width=\"110\"  align=\"right\">"+ticket.lines[line].price_unit+"</td>\
-						<td style=\"font-family:Courier;font-size:10px;padding-right:15px;\" width=\"110\" align=\"right\">"+ticket.lines[line].price_subtotal+"</td>\
-						</tr>"
-				t2 = t2 + cont
-			}
-	    	t2 = t2+ "</table></div>"    		
-			var t3 = "<div style=\"height:30px;width:700px;margin-left:100px;margin-top:0px;font-family:Courier;font-size:13px;\">\
-			  	<span style=\"display:inline-block;width:390px;margin-left:0px;\">"+ticket.amount_text+"</span>\
-			  	<span style=\"margin-left:240px;\">"+ticket.amount_untaxed+"</span>\
-			    </div>\
-			  <div style=\"height:30px;font-family:Courier;font-size:13px;\">\
-			  	<span  style=\"margin-left:740px;\" >"+ticket.amount_tax+"</p></span>\
-			  </div>\
-			  <div style=\"height:30px;font-family:Courier;font-size:13px;\" >\
-			  	<span style=\"margin-left:740px;\" > "+ticket.amount_total+"</span>\
-			  </div>"
-
-
-    	$("#pos-sale-ticket-invoice").html(t1+t2+t3);		
-    	$("#pos-sale-ticket-invoice").printMe();		
 	});	
 	
-
 	$('.order_line').change(function(){
 		onchange_order_line(this)
-	});
-	
+	});	
+    $('#save-button').click(function(){
+        form = $('#form-session')
+        form.submit();
+
+    });
+
+    $('#close-button').click(function(){
+    	form = $('#form-close-session')
+        form.submit();
+    });
+
 	$('#filtro_terminal_ventas').change(function(){
 		var product = $('#filtro_terminal_ventas').val()
 		$('#product_contain').html('')
@@ -150,6 +71,21 @@ $(document).ready(function(){
 	        $('#product_contain').find('div.prod_obj_data').attr('onclick', 'pauseAppendTicket(this);');
 	    });					
 	});
+
+	$('#kanban-product-filter').keypress(function (e) {
+		 var key = e.which;
+		 if(key == 13)  // the enter key code
+		  {
+			var text = $('#kanban-product-filter').val();
+			if (text == ''){
+				$('#search-box-product-list').hide()			
+				$('#original-box-product-list').show()			
+			}else{
+				get_product_id(text, false)							
+			}
+		  }
+	}); 
+
 });
 
 function clearJson(list_ticket, session_id){
@@ -252,7 +188,7 @@ function send_to_server(tickets){
 
 function onchange_order_line(args){
 	var id = args.id
-	var start_id = '#id_terminal_order_line_set-'+id.substring( id.indexOf('-')+1 , id.lastIndexOf('-') )
+	var start_id = '#id_lines-'+id.substring( id.indexOf('-')+1 , id.lastIndexOf('-') )
 	var qty = $(start_id+'-qty')
 	var price_unit = $(start_id+'-price_unit')
 	var price_total = $(start_id+'-amount_total')
@@ -270,11 +206,11 @@ function onchange_order_line(args){
 	change_amount_total();
 }
 function change_amount_total(){
-	count = parseInt($('#id_terminal_order_line_set-TOTAL_FORMS').val())
+	count = parseInt($('#id_lines-TOTAL_FORMS').val())
 	amount_total = 0
 	if (count >  0 ){
 		while (count >=0){
-			amount = $('#id_terminal_order_line_set-'+count.toString()+'-amount_total').val()
+			amount = $('#id_lines-'+count.toString()+'-amount_total').val()
 			if (amount >0){
 				amount_total += parseFloat(amount)
 			}	
@@ -296,16 +232,65 @@ function pauseAppendTicket(args){
 }
 
 function get_product_id(name, code){
+	if (name && code){
+		var urll = "http://localhost/terminal/snippets/"+name+'/'+code		
+	}else if (name != false){
+		var urll = "http://localhost/terminal/snippets/"+name+'/'		
+	}
+
 	$.ajax({
 		dataType: 'json',
 		data: {'name': name, 'code' : code}, 
 		type: "GET", 
-		url: "http://localhost:8000/terminal/snippets/"+name+'/'+code,
+		url: urll,
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			console.log("An error has occurred: " + textStatus);
+			$('#original-box-product-list').hide()			
 		}, 
 		success: function(data, textStatus, XMLHttpRequest) {
-			console.log(data)
+			$('#original-box-product-list').hide()			
+			var filter_div = $('#search-box-product-list')
+			for (x in data){
+				var d = "<div class=\"col-md-4\">"+
+						"<div class=\"product-box-kanban\" onclick=\"location.href='/terminal/product_product_form/edit/"+ data[x].id +"'\">"+
+						"<table>"+
+								"<tr>"+
+								    "<td style=\"vertical-align: top; width:105px;\">"+
+										"<img src=\""+ data[x].model_pic+"\" alt=\"No Photo\" class=\"img-thumbnail img-responsive\""+
+									    "style=\"width:100px;height:90px\">"+
+								    "</td>"+
+								    "<td style=\"vertical-align: top;\">"+
+								    	"<ul>"+
+								    		"<li><h5><strong>"+ data[x].name +"</strong></h5></li>"+
+								    		"<li><p><strong>codigo:</strong> "+ data[x].code +"</p></li>"+
+								    		"<li><p><strong>precio:</strong> "+ data[x].price_sale +"</p></li>"+
+								    		"<li><p><strong>ctd:</strong> "+ data[x].qty_available +"</p></li>"+
+								    	"</ul>"+
+								    "</td>"+
+								"</tr>"+
+							"</table>"+
+						"</div>"+
+						"</div>"				
+				filter_div.append($(d))	
+			}
+			filter_div.show()
 		}
 	});	
 } 
+
+
+function cloneMore(selector, type) {
+    var newElement = $(selector).clone(true);
+    var total = $('#id_' + type + '-TOTAL_FORMS').val();
+    newElement.find(':input').each(function() {
+        var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');
+        var id = 'id_' + name;
+        $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+    });
+    newElement.find('label').each(function() {
+        var newFor = $(this).attr('for').replace('-' + (total-1) + '-','-' + total + '-');
+        $(this).attr('for', newFor);
+    });
+    total++;
+    $('#id_' + type + '-TOTAL_FORMS').val(total);
+    $(selector).after(newElement);
+}
