@@ -1,12 +1,12 @@
 body {
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e4a96+0,2989d8+40,7db9e8+100 */
-	background: rgb(30,74,150); /* Old browsers */
-	background: -moz-linear-gradient(top,  rgba(30,74,150,1) 0%, rgba(41,137,216,1) 40%, rgba(125,185,232,1) 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(top,  rgba(30,74,150,1) 0%,rgba(41,137,216,1) 40%,rgba(125,185,232,1) 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to bottom,  rgba(30,74,150,1) 0%,rgba(41,137,216,1) 40%,rgba(125,185,232,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e4a96', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
-	font-size: 16px;
-	font-family: 'Lato', sans-serif;
+    background: rgba(72,140,234,1);
+    background: -moz-linear-gradient(top, rgba(72,140,234,1) 0%, rgba(31,104,229,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(72,140,234,1)), color-stop(100%, rgba(31,104,229,1)));
+    background: -webkit-linear-gradient(top, rgba(72,140,234,1) 0%, rgba(31,104,229,1) 100%);
+    background: -o-linear-gradient(top, rgba(72,140,234,1) 0%, rgba(31,104,229,1) 100%);
+    background: -ms-linear-gradient(top, rgba(72,140,234,1) 0%, rgba(31,104,229,1) 100%);
+    background: linear-gradient(to bottom, rgba(72,140,234,1) 0%, rgba(31,104,229,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#488cea', endColorstr='#1f68e5', GradientType=0 );	font-family: 'Lato', sans-serif;
 	font-weight: 300;
 	margin: 0;
 	color: black;
@@ -15,58 +15,58 @@ body {
 
 
 #login-form{
-    border : 1px solid;    
-    margin-top: 0px;
     background-color: white;
     text-align: center;
-	border-radius: 5px 5px 0 0;
-}	
-
-#login-form > div{    
-    padding: 0px;    
+    height: 300px;
+    padding-top: 40px;
 }
 
-#login-form >div:nth-of-type(1){
-    margin-top: 30px;
-}
-
-#login-form > div:nth-of-type(3){
-    margin-bottom: 30px;
+#login-form > form> div{
+    padding: 5px;
 }
 
 .input-login{
-	text-align: center;
-	width: 70%;
+	text-align: left;
+	width: 80%;
 	margin: auto;
+
 }
 
 .box-header {
-	background-color: #ffc34d;
-	border: 1px solid;
-	border-radius: 5px 5px 0 0;
-	text-align: center;
-	text-transform: uppercase;
-	height: 60px;
+	background-color: white;
+	height: 70px;
+	padding:1px;
 }
 
 .top-title{
-	margin-top: 80px;
+	margin-top: 30px;
 	text-align: center;	
 	text-transform: uppercase;
 }
 
 .top-title > h1{
-	text-shadow: 1.3px 1.3px #FFFFAE; 
+	text-transform: uppercase;
+	font-family : Arial;
+	font-weight: 400;
+	letter-spacing: 1px;
 	color: white;
+	margin-bottom:20px;
 }
 
 h2 {
 	text-transform: uppercase;
 	text-align: center;
-	color: white;
+	font-family : Arial;
+	color: black;
 	font-weight: 400;
 	letter-spacing: 1px;
-	font-size: 1.4em;
-	line-height: 2.8em;
+	font-size: 30px;
+	color: #3d5c5c;
+	margin-top: 30px;
 }
 
+#input-button-login{
+ 	text-align: center;
+	width: 80%;
+    margin: auto;
+}

@@ -1,17 +1,46 @@
 {% extends "product/base.html" %}
+{% load staticfiles %}
 {% block level1 %}
 	<div class="container-fluid">
+
   		<div class="row">
-	 			{% for product in product_product_list %}
-	 			<div class="col-md-3">
-	   			<div class="thumbnail" onclick="location.href='{% url 'terminal:product-edit' pk=product.id %}';">	
-	     			  <img src="{{ product.model_pic.url }}" alt="No Photo" class="img-thumbnail img-responsive"  style="width:225px;height:190px" width="225" height="190">
-	    					<div class="caption">
-	      					<h4>{{ product.name }}{{ product.code }}</h4>        					
-	    					</div>
-		   			</div>
-		   		</div>
-	  			{% endfor %}	  			
-  		</div>
+
+  			<div class="row panel filter-panel">
+				<div class="col-md-offset-8 col-md-4">
+					<input name="filtro" type="text" class="input-md" id="kanban-product-filter" style="float:right;color:gray;"/>
+				</div>
+			</div>
+
+			<div class="col-md-12" id="original-box-product-list">
+					{% for product in product_product_list %}
+					<div class="col-md-4">
+					<div class="product-box-kanban" onclick="location.href='{% url 'terminal:product-edit' pk=product.id %}'">
+						<table>
+							<tr>
+							    <td style="vertical-align: top; width:105px; ">
+									<img src="{{ product.model_pic.url }}" alt="No Photo" class="img-thumbnail img-responsive"
+								    style="width:100px;height:90px">
+							    </td>
+							    <td style="vertical-align: top;">
+							    	<ul>
+							    		<li><h5><strong>{{ product.name }}</strong></h5></li>
+							    		<li><p><strong>codigo:</strong> {{ product.code }}</p></li>
+							    		<li><p><strong>precio:</strong> {{ product.price_sale }}</p></li>
+							    		<li><p><strong>ctd:</strong> {{ product.qty_available }}</p></li>
+							    	</ul>
+							    </td>
+							</tr>
+						</table>
+					</div>
+					</div>
+					{% endfor %}
+  			</div>
+			<div class="col-md-12" id="search-box-product-list">
+			</div>
+		</div>
+
 	</div>
+{% endblock %}
+{% block script %}
+<script type="text/javascript" src="{% static 'project_django/src/js/terminal_ventas.js' %}"></script>
 {% endblock %}

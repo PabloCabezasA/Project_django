@@ -4,32 +4,21 @@
 	<div class="container-fluid">
   		<div class="row">
 	  		<div class="col-md-offset-4 col-md-4 col-md-offset-4">
-	  			<h1>Pedido</h1>
+					<h1>Pedido-{{ terminal_order.name }}</h1>
 	  		</div>
-	  		<div class="col-md-offset-3 col-md-6 col-md-offset-3">
-	  				{% if messages %}
-						<ul class="messages">
-						    {% for message in messages %}
-						    	<li>{{ message }}</li>
-						    {% endfor %}
-						</ul>
-					{% endif %}
-       			    {% if form.errors %}
-       			    <ul>
-					    {% for key, value in form.errors.items %}
-					    {% if key != '__all__' %}{{ key }} {% endif %}{{ value }}
-					    {% endfor %}
-            		</ul>
-            		{% endif %}
-       			    <form action="." class="form-inline" style="display:inline;" method="POST" enctype="multipart/form-data">
-   			          {% csrf_token %}    			          
- 
-   			          <div class="form-group">
-                          	<label for="id_name">Nombre:</label>{{ form.name}}	                                                    
-                          	<label for="id_date_order">Fecha:</label>{{ form.date_order}}
-                     </div>
-                          {{ inlines.management_form }}
-                          	<table class="table table-hover" id="table_account_tree">
+	  		<div class="col-md-offset-2 col-md-6 col-md-offset-4">
+       			    <form action="." method="POST" class="form-inline-form" enctype="multipart/form-data">
+   			          {% csrf_token %}
+   			          		<table class="table-form">
+   			          			<tr>
+		          				<td><label for="id_name">Nombre: </label>{{ form.name }}</br></td>
+		          				<td><label for="id_date_order">Fecha:</label>{{ form.date_order}}</td>
+		          				<td><label for="id_session_id">Sesion:</label>{{ form.session_id}}</td>
+   			          			</tr>
+   			          		</table> 
+						    <div class="box-inline-form">
+							    {{ inlines.management_form }}
+  	                          	<table class="table-inlines-forms">			
 									<th>Producto</th>
 									<th>cta</th>
 									<th>Precio U</th>
@@ -44,21 +33,31 @@
 							  			<td><p>{{order_line.DELETE}}</p></td>							  			
 							  		    {% for hidden in  order_line.hidden_fields %}
 							  		    	<td><p>{{ hidden }}</p></td>
-							  		    {% endfor %}							  										  			  			
+							  		    {% endfor %}												  			  			
 							  		</tr>
 								   {% endfor %}
-							</table>
-							 <input type="button" value="Add More" id="add_more">
-		                     <input type="submit" value="Submit">
-   			          <div class="form-group">
-   			              <label for="id_amount_total">Total:</label>{{ form.amount_total }}
-   			          </div>                                 
+								</table>
+							</div>
+						   <div class="footer-form-order">
+						   	<div>
+							   <input type="button" value="Add More" id="add-more" class="btn btn-success" >
+	                     	   <input type="submit" value="Submit" class="btn btn-primary">
+						   </div>
+						   <div class="box-total-form-order">
+						   		<label for="id_amount_total">Total:</label>{{ form.amount_total }}</br>
+   			               </div>
+   			               </div>
                  </form>
-  		         </div>
+  		        </div>
 	</div>	
 {% endblock %}
 {% block script %}
 	<script src="{% static "project_django/jsPDF-0.9.0rc2/jspdf.js" %}"  type="text/javascript" ></script>
 	<script src="{% static "project_django/src/js/terminal_ventas.js" %}" type="text/javascript" ></script>
+<script>
+    $('#add-more').click(function() {
+        cloneMore('.table-inlines-forms>tbody>tr:last', 'lines');
+    });
+</script>
 {% endblock %}
 

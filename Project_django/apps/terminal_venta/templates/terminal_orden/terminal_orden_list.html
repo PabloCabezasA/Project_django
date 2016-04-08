@@ -3,6 +3,13 @@
 {% block level1 %}
 	<div class="container-fluid">
   		<div class="row">
+
+  			<div class="row panel filter-panel">
+				<div class="col-md-offset-8 col-md-4">
+					<input name="filtro" type="text" class="input-md" id="kanban-order-filter" style="float:right;color:gray;"/>
+				</div>
+			</div>
+	  		
 	  		<div class="col-md-12">	  		
 			<table class="table table-striped table-bordered table-responsive" id="table_account_tree">
 				<th></th>
@@ -11,8 +18,8 @@
 		  		<th>Total</th>		  		
 			  {% for orden in terminal_order_list %}
 		  		<tr>
-		  			<td>  			
-		      			<input class="check_table" type="checkbox" value="{{  orden.id  }}" />    		
+		  			<td class="check-table">		
+		      			<input type="checkbox" value="{{  orden.id  }}" />    		
 		    		</td>
 		  			<td><p><a href="{% url 'terminal:terminal-orden-edit' pk=orden.id %}"><p>{{orden.name}}</p></a></p></td>  			
 		  			<td><p>{{orden.date_order}}</p></td>  			

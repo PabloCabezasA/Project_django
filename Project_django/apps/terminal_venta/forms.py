@@ -1,5 +1,7 @@
-from django.forms import ModelForm
-from Project_django.apps.terminal_venta.models import Product_product, Terminal_order, Terminal_order_line
+from django.forms.extras.widgets import SelectDateWidget
+from django import forms
+from django.forms import ModelForm, Form
+from Project_django.apps.terminal_venta.models import Product_product, Terminal_order, Terminal_order_line, Terminal_session
 from django.forms.models import inlineformset_factory
 
 class product_product_form(ModelForm):
@@ -39,3 +41,13 @@ Terminal_order_line_formset = inlineformset_factory(parent_model=Terminal_order,
                                                     can_delete=True,
                                                     fields="__all__"
                                                     )
+
+class Terminal_session_form(ModelForm):
+    def __init__(self, *args, **kwargs ):
+        super(Terminal_session_form, self).__init__(*args,**kwargs)
+        for key in self.fields.keys():
+            self.fields[key].widget.attrs = {'class':'form-control'}
+    class Meta:
+        model = Terminal_session
+        fields = "__all__"
+

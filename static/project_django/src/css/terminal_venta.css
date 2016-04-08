@@ -46,14 +46,20 @@
     border-radius: 6px 0 6px 6px;
 }
 
-.ticket-content{
-    border: 0px solid;
-    min-width: 375px;
-    max-height: 50px;
+.ticket-content ul{
+    padding: 0;
+}
+
+.ticket-content  ul  li{
+    display: inline;
+}
+
+
+.ticket-content  ul  li:nth-child(3){
+    text-align: right;    
 }
 
 .ticket-qty-total{
-    float: right;
 }
 
 .thumbnail-product-ticket{
@@ -72,7 +78,7 @@
 
 
 .thumbnail-product-ticket > div >:first-child{
-    color:red;
+    color: black;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -80,7 +86,7 @@
 }
 
 .thumbnail-product-ticket > div >:nth-child(3){
-    color:red;
+    color:black;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -97,4 +103,168 @@
 
 #menu-principal{
     text-transform: uppercase;
+    font-family: Georgia, serif;
+}
+
+a.navbar-brand{
+    font-size: 16px;
+}
+
+a.dropdown-toggle{
+ font-size: 16px;   
+}
+
+.form-form{
+    border: 1px solid;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+#form-session > div{
+    padding: 5px;
+}
+
+.product-thumbnail-list{
+    max-height: 200px;
+}
+
+.product-thumbnail-list >div> h4{
+    font-size : 15px;
+    text-transform: lowercase;
+    color : black;
+    text-align: left;
+    font-family: ;
+}
+
+.check-table {
+    text-align : center; 
+    vertical-align: bottom;
+    min-width: 30px;
+    width:30px;
+}
+
+.table > tbody> tr{    
+    line-height: 5px;
+    min-height: 5px;
+    height: 10px;
+}
+
+.table > tbody> tr> td{    
+    padding: 5px;
+    vertical-align: bottom;
+}
+
+.table > tr > td {    
+    padding: 5px;
+    vertical-align: bottom;
+    background-color: red;
+}
+
+.table > tr {    
+    line-height: 5px;
+    min-height: 5px;
+    height: 10px;
+    background-color: red;
+}
+
+.product-box-kanban{
+    max-height: 150px;
+    height: 130px;    
+    border: 1px solid black;
+    padding: 3px;
+}
+
+.product-box-kanban > table{
+    max-height: 150px;
+    height: 123px;    
+    margin: 0;
+    padding: 0;
+    max-width: 385px;
+    width: 385px;
+}
+
+.product-box-kanban > table tr td{
+    text-align: left;
+    margin-left: 0px;
+    padding-left: 0px;
+
+}
+
+.product-box-kanban  ul{
+    margin-left: 5px;
+    padding-left: 5px;
+ }
+
+.product-box-kanban  ul  li{
+    margin: 0;
+    padding: 0;
+    display: inline;
+    line-height: 10px;
+}
+
+.product-box-kanban  ul  li h5{
+    color: #008080;
+}
+
+.table-form{
+    width: 850px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.table-form > tbody> tr{    
+    line-height: 25px;
+    min-height: 5px;
+}
+
+.table-form > tbody> tr > td{    
+    width: 850px;
+}
+
+.table-inlines-forms{
+    width: 840px;
+    max-width: 900px;
+    position: center;
+    margin: 5px;
+}
+
+.table-inlines-forms > tbody > tr > th{
+    background-color: #D3D3D3;
+    line-height: 25px;
+    min-height: 20px;
+
+}
+
+
+.table-inlines-forms > tbody > tr{
+    line-height: 20px;
+    min-height: 15px;
+}
+
+.box-inline-form{
+    max-width: 900px;
+    width: 850px;
+    border: 1px solid black;
+    margin: auto;
+    margin-top: 25px;
+}
+
+.form-inline-form{
+    max-width: 950px;
+    width: 900px;
+    border: 1px solid black;
+    padding: 15px;
+    border-radius: 5px;
+
+}
+
+.footer-form-order{
+    width: 850px;
+    max-width: 900px;
+    margin: auto;    
+    margin-top: 5px;
+}
+
+.box-total-form-order{
+    text-align: right;
 }

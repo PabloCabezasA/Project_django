@@ -9,7 +9,7 @@
 	<div class="container-fluid">
 		<div class="row">			
 				<div class=" col-md-12 top-title">
-					<h1 id="title">Terminal de Ventas</h1>
+					<h1 id="title">TPV</h1>
 				</div>
 
 			  <div class="col-md-offset-4 col-md-4 col-md-offset-4">
@@ -22,24 +22,22 @@
 				   {% endif %}		
 			      
 			      <div class="box-header">
-						<h2></h2>
+						<h2>Login</h2>
 				  </div>
-
-				  <form action="." method="post" id="login-form">
-				  	  {% csrf_token %}
-		    		 <div class="form-group">
-			    		  <label for="username">usuario</label></br>
-			    		  <input type="text" class="form-control input-md input-login" id="username" name="username"  placeholder="Username">
-		    		 </div>
-					 <div class="form-group">
-		    		  <label for="password">contraseña</label></br>
-		    		  <input type="password" class="form-control input-md input-login" id="password" name="password"  placeholder="Username">
-		    		 </div>
-		    		 <div>
-		    		  <input type="submit" class="btn btn-primary btn-lg" value="Ingresar" id="input-button-login">
-				  	 </div>
-				  </form>
-			  
+				  <div id="login-form">
+					  <form action="." method="post">
+						  {% csrf_token %}
+						 <div class="form-group">
+							  <input type="text" class="form-control input-lg input-login" id="username" name="username"  placeholder="Nombre Usuario">
+						 </div>
+						 <div class="form-group">
+						  <input type="password" class="form-control input-lg input-login" id="password" name="password"  placeholder="Contraseña">
+						 </div>
+						 <div>
+						  <input type="submit" class="btn btn-success btn-lg btn-block" value="Ingresar" id="input-button-login">
+						 </div>
+					  </form>
+				  </div>
 			  </div>			 
 		</div>
 	</div>
