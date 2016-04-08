@@ -1,3 +1,4 @@
+var server = 'http://localhost:8000/'
 $(document).ready(function(){		 
 	$("#pos-sale-ticket-invoice").html()
 	$("#button-ticket-next").hide()
@@ -21,11 +22,11 @@ $(document).ready(function(){
 		$.each(ticket,function (){
 			tck = []
 			d_ticket = {}
-			$.each($(this).find('label').not('#sg'),function(){
+			$.each($(this).find('li'),function(){
 				tck.push($(this).text())
 			})
-			d_ticket['name'] = tck[0]
-			d_ticket['code'] = tck[1]
+			d_ticket['code'] = tck[0].replace('[','').replace(']','')
+			d_ticket['name'] = tck[1]
 			d_ticket['id'] = $(this).find('input#product_ian').val()			
 			d_ticket['qty'] = $($(this).find('input#qty_id')).val()
 			d_ticket['amount_total'] = $($(this).find('input.price_product_ticket')).val()
@@ -120,14 +121,16 @@ function find_ticket_in(list_product){
 	var exist = valid_exist(id_ticket)
 	if (!exist){
 		cont = "<div class=\"ticket-content\" id='ticket_"+list_product[0].replace(/\s+/g, '')+list_product[1].replace(/\s+/g, '')+"'>" +
-				"<label>"+list_product[0]+"</label> " +
-				"<label>"+list_product[1]+"</label></br> "+
-				"<div class=\"ticket-qty-total\"><label id='qty_id'>Cta</label> "+
+				"<ul>"+
+				"<li>["+list_product[1]+"] </li>" +
+				"<li>"+list_product[0]+"</li>"+
+				"<li><div class=\"ticket-qty-total\"><label id='qty_id'>Cta</label>"+
 				"<input type='text' id='qty_id' style='width: 40px;' value='1'/>"+
 				"<input type='hidden' id='prc_unit' value='"+list_product[3]+"'/>"+
 				"<input type='hidden' id='product_ian' value='"+list_product[4]+"'/>"+				
 				"<label id='sg'>$</label> "+
-				"<input type='text' class='price_product_ticket' value='"+list_product[3]+"'/></div>"+
+				"<input type='text' class='price_product_ticket' value='"+list_product[3]+"'/></div></li>"+
+				"</ul>"+
 				"</div>"					
 				ticket = $('#boleta_terminal_venta'+' #ticket_'+list_product[0])
 				$('#boleta_terminal_venta').append(cont)
@@ -183,7 +186,7 @@ function send_to_server(tickets){
 		}, 
 		type: "POST", 
 		headers: { "X-CSRFToken": getCookie("csrftoken") },
-		url: "http://localhost/terminal/orderSerializer/"});
+		url: server+"terminal/orderSerializer/"});
 }
 
 function onchange_order_line(args){
@@ -233,9 +236,9 @@ function pauseAppendTicket(args){
 
 function get_product_id(name, code){
 	if (name && code){
-		var urll = "http://localhost/terminal/snippets/"+name+'/'+code		
+		var urll = server+"terminal/snippets/"+name+'/'+code		
 	}else if (name != false){
-		var urll = "http://localhost/terminal/snippets/"+name+'/'		
+		var urll = server+"terminal/snippets/"+name+'/'		
 	}
 
 	$.ajax({

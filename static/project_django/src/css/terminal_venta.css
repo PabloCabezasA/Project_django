@@ -46,14 +46,20 @@
     border-radius: 6px 0 6px 6px;
 }
 
-.ticket-content{
-    border: 0px solid;
-    min-width: 375px;
-    max-height: 50px;
+.ticket-content ul{
+    padding: 0;
+}
+
+.ticket-content  ul  li{
+    display: inline;
+}
+
+
+.ticket-content  ul  li:nth-child(3){
+    text-align: right;    
 }
 
 .ticket-qty-total{
-    float: right;
 }
 
 .thumbnail-product-ticket{
@@ -72,7 +78,7 @@
 
 
 .thumbnail-product-ticket > div >:first-child{
-    color:red;
+    color: black;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -80,7 +86,7 @@
 }
 
 .thumbnail-product-ticket > div >:nth-child(3){
-    color:red;
+    color:black;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
