@@ -35,7 +35,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'Project_django.apps.curso1',
     'Project_django.apps.terminal_venta',
 
 
