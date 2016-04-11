@@ -120,8 +120,15 @@ a.dropdown-toggle{
     border-radius: 5px;
 }
 
-#form-session > div{
-    padding: 5px;
+#form-session {
+    width: 700px;
+}
+
+#form-session  tr {
+    line-height: 40px;
+}
+#form-session  td {
+    padding-left: 5px;
 }
 
 .product-thumbnail-list{

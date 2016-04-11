@@ -66,12 +66,6 @@
 				</table>
 			</div>
 
-			{%if terminal_session%}
-			<form method="post" class="form-inline" id="form-close-session" action="{% url 'terminal:session-close' pk=terminal_session.id %}">
-				{% csrf_token %}
-				<input type="submit" value="enviar" />
-			</form>
-			{% endif %}
 	</div>	
 {% endblock %}
 {% block script %}
