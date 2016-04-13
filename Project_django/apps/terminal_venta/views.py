@@ -87,6 +87,12 @@ class AddProductView(CreateView):
     model = Product_product
     form_class = forms.product_product_form
 
+    def form_valid(self, form):
+        res = super(AddProductView, self).form_valid(form)
+        if res:
+            messages.success(self.request, "Exito, Producto creado.", )
+        return  res
+
 
 class ListProductView(ListView):
     template_name = 'product/product_product_list.html'
@@ -105,6 +111,12 @@ class EditProductView(UpdateView):
     model = Product_product
     template_name = 'product/product_product_view.html'
     form_class = forms.product_product_form
+
+    def form_valid(self, form):
+        res = super(EditProductView, self).form_valid(form)
+        if res:
+            messages.success(self.request, "Exito, Producto editado.", )
+        return  res
 
     
 class DetailProductView(DetailView):
@@ -162,6 +174,7 @@ class UpdateTerminalView(UpdateView):
             ctx['inlines'] = forms.Terminal_order_line_formset(instance=self.object)
         return ctx
 
+
     def form_valid(self, form):
         context = self.get_context_data()
         form = context['form']
@@ -171,9 +184,10 @@ class UpdateTerminalView(UpdateView):
             formset.instance = self.object
             if formset.is_valid():
                 formset.save()
-            messages.add_message(self.request, messages.SUCCESS, 'Orden editada con exito')
+            messages.success(self.request, "Exito, Orden editada", )
             return redirect(self.object.get_absolute_url())  # assuming your model has ``get_absolute_url`` defined.
         else:
+            messages.success(self.request, "Exito, Orden editada", )
             return self.render_to_response(self.get_context_data(form=form))
 
 
@@ -184,7 +198,9 @@ class AddSession(CreateView):
 
     def form_valid(self, form):
         res = super(AddSession, self).form_valid(form)
-        return res
+        if res:
+            messages.success(self.request, "Exito, Sesion Creada", )
+        return  res
 
 class ListSession(ListView):
     model = Terminal_session
@@ -196,6 +212,21 @@ class UpdateSessionView(UpdateView):
     template_name = 'session/create_session.html'
     form_class = forms.Terminal_session_form
 
+    def post(self, request, **kwargs):
+        request.POST = request.POST.copy()
+        self.object = self.get_object()
+        if self.object.qty_total:
+            request.POST['qty_total'] = self.object.qty_total
+            request.POST['amount_total'] = self.object.amount_total
+        return super(UpdateSessionView, self).post(request, **kwargs)          
+
+    def form_valid(self, form):
+        res = super(UpdateSessionView, self).form_valid(form)
+        if res:
+            messages.success(self.request, "Exito, Sesion Modificada con exito", )
+        return  res
+
+
 def close_session(request, pk=None):
     if pk is not None:
         session = Terminal_session.objects.get(pk=pk)
@@ -205,13 +236,17 @@ def close_session(request, pk=None):
         if session.order_ids.all():
             qty = 0
             amount = 0
-            print session.id
-            print session.order_ids
             for order in session.order_ids.all():
                 qty +=1
                 amount += order.amount_total
             session.qty_total = qty
             session.amount_total= amount
-            session.save()
+            session.state = 'close'
+            session.date_close = datetime.datetime.now().strftime('%Y-%m-%d')
+            try:
+                session.save()
+                messages.success(request, "Exito, Sesion cerrada")
+            except:
+                messages.error(request, "Error, A ocurrido un error al guardar la sesion")
         form = forms.Terminal_session_form(instance=session)
     return redirect('terminal:session-edit', pk=session.pk)

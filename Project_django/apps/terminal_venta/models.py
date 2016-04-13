@@ -23,7 +23,7 @@ class Product_product(models.Model):
         db_table = 'product_product'
     
     def get_absolute_url(self):        
-        return reverse('terminal:product-list')
+        return reverse('terminal:product-edit', kwargs={'pk': self.id})
     
     def get_product_id(self, code, name):
         prod =self.__class__.objects.get(Q(name=name))

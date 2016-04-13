@@ -1,4 +1,4 @@
-var server = 'http://localhost:8000/'
+var server = 'http://localhost/'
 $(document).ready(function(){		 
 	$("#pos-sale-ticket-invoice").html()
 	$("#button-ticket-next").hide()
