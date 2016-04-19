@@ -28,7 +28,8 @@
 </style>
 {% endblock %}
 
-	<div>
+<div class="container-fluid">
+	<div class="row" id="menu-container-row">
 	{% block menu_level1 %}
 	<nav class="navbar navbar-inverse" id="menu-principal">
 		<div class="container-fluid">
@@ -96,7 +97,8 @@
 	</nav>
 	{% endblock %}
 	</div>
-	
+</div>
+
 	<div>
 	{% block messages_forms %}
 	<div class="container-fluid">
@@ -151,7 +153,6 @@
 	<script src="http://code.jquery.com/jquery-1.11.3.js"  type="text/javascript" ></script>
 	<script src="{% static "project_django/bootstrap_3_dist/js/bootstrap.js" %}"  type="text/javascript" ></script>
 	<script src="{% static "project_django/src/js/mejorando.js" %}"  type="text/javascript" ></script>
-	<script src="{% static "project_django/jquery-bs-alerts-0.1.5/build/jquery.bsAlerts.min.js" %}"  type="text/javascript" ></script>
 {% block script %}
 {% endblock %}
 </body>

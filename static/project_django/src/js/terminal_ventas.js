@@ -3,7 +3,6 @@ $(document).ready(function(){
 	$("#pos-sale-ticket-invoice").html()
 	$("#button-ticket-next").hide()
 	$("#ticket_print_button").hide()	
-
 	$('.prod_obj_data').click(function(){
 		pauseAppendTicket(this)
 	});
@@ -12,8 +11,16 @@ $(document).ready(function(){
 		$("#button-ticket-next").hide()
 		$("#ticket_save_button").val('Guardar')
 		$("#ticket_print_button").hide()
+		$("#ticket_save_button").show()
 		$('#boleta_terminal_venta').empty()
-	})
+	});
+
+	$(document).on('click','#btn-remove-product',function(){
+  		$div_remove = $(this).parents(".ticket-content")  		
+  		amount = $div_remove.find(".ticket-qty-total").find(".price_product_ticket").val()
+  		getRestTotalAmount(amount)
+  		$div_remove.remove();
+	});
 
 	$('#ticket_save_button').click(function(){
 		list_ticket = []
@@ -38,6 +45,7 @@ $(document).ready(function(){
 	});
 
 	$('#ticket_print_button').click(function(){
+
 	});	
 	
 	$('.order_line').change(function(){
@@ -89,6 +97,20 @@ $(document).ready(function(){
 
 });
 
+function getTotalAmount(amount){
+	am = parseFloat($("#footer-total").text())
+	am += parseFloat(amount)
+	$("#footer-total").text(am)
+
+}
+
+function getRestTotalAmount(amount){
+	am = parseFloat($("#footer-total").text())
+	am -= parseFloat(amount)
+	$("#footer-total").text(am)
+
+}
+
 function clearJson(list_ticket, session_id){
 	var ticket = {
 					name : Math.floor((Math.random() * 9999999) + 1000000),
@@ -122,7 +144,9 @@ function find_ticket_in(list_product){
 	if (!exist){
 		cont = "<div class=\"ticket-content\" id='ticket_"+list_product[0].replace(/\s+/g, '')+list_product[1].replace(/\s+/g, '')+"'>" +
 				"<ul>"+
-				"<li>["+list_product[1]+"] </li>" +
+				"<li><button id=\"btn-remove-product\" type=\"button\" class=\"btn btn-default btn-xs\">"+				
+				"<span class=\"glyphicon glyphicon-remove-circle\" aria-hidden=\"true\"></span>"+
+				"</button> ["+list_product[1]+"] </li>" +
 				"<li>"+list_product[0]+"</li>"+
 				"<li><div class=\"ticket-qty-total\"><label id='qty_id'>Cta</label>"+
 				"<input type='text' id='qty_id' style='width: 40px;' value='1'/>"+
@@ -133,12 +157,14 @@ function find_ticket_in(list_product){
 				"</ul>"+
 				"</div>"					
 				ticket = $('#boleta_terminal_venta'+' #ticket_'+list_product[0])
-				$('#boleta_terminal_venta').append(cont)
+				$('#boleta_terminal_venta').append($(cont))
+				getTotalAmount(list_product[3])
 	}else{
 		qty=exist.find('input#qty_id').val()
 		qty = parseInt(qty)+1
 		exist.find('input#qty_id').val(qty)
 		exist.find('input.price_product_ticket').val(qty * parseFloat(list_product[3]))		
+		getTotalAmount(list_product[3])
 	} 
 
 }				
@@ -178,11 +204,17 @@ function send_to_server(tickets){
 			console.log(XMLHttpRequest.responseText);
 		    $("#button-ticket-next").show()
 		    $("#ticket_print_button").show()
+		    var cont = parseInt($("#success-send").val())
+		    $("#error-send").val(cont+=1)
+		    
 		}, 
 		success: function(data, textStatus, XMLHttpRequest) {
 			$("#button-ticket-next").show()
-			$("#ticket_save_button").val('Editar')
+			$("#ticket_save_button").hide()
 			$("#ticket_print_button").show()
+		    var cont = parseInt($("#success-send").val())
+		    $("#success-send").val(cont+=1)
+
 		}, 
 		type: "POST", 
 		headers: { "X-CSRFToken": getCookie("csrftoken") },

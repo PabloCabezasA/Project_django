@@ -46,60 +46,7 @@
     border-radius: 6px 0 6px 6px;
 }
 
-.ticket-content ul{
-    padding: 0;
-}
 
-.ticket-content  ul  li{
-    display: inline;
-}
-
-
-.ticket-content  ul  li:nth-child(3){
-    text-align: right;    
-}
-
-.ticket-qty-total{
-}
-
-.thumbnail-product-ticket{
-    max-height:220px
-    
-}
-.thumbnail-product-ticket > div{
-    max-height: 60px;
-}
-
-.thumbnail-product-ticket > div > label{
-    margin-top: -3px;
-    font-size:13px;
-    height:15px;
-}
-
-
-.thumbnail-product-ticket > div >:first-child{
-    color: black;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display:block;
-}
-
-.thumbnail-product-ticket > div >:nth-child(3){
-    color:black;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display:block;
-}
-
-.filter-panel{
-    background-color: #f5f5f5;
-    border-color: #ddd;
-    padding: 5px;
-    padding-top: 10px;
-    margin-top : -22px;
-}
 
 #menu-principal{
     text-transform: uppercase;

@@ -1,5 +1,8 @@
 {% extends "product/base.html" %}
 {% load static %}
+{% block links %}
+<link rel="stylesheet" type="text/css" href="{% static "project_django/src/css/tpv.css" %}"
+{% endblock %}
 {% block level1 %}
 	<div class="container-fluid">
   		<div class="row panel filter-panel">
@@ -9,18 +12,28 @@
 				<input  type="hidden" id="session-id" value="{{ session_id.id }}"/>
   			</div>
 
-  			<div class="col-md-offset-4 col-md-4">
-  				<label for="filtro">Filtro</label><input name="filtro"  type="text" id="filtro_terminal_ventas"/>
+  			<div class="col-md-offset-4 col-md-4" id="box-filter-tpv">
+  				<label for="filtro">Filtro</label>
+  				<input name="filtro"  type="text" id="filtro_terminal_ventas"/>
+  				<input id="success-send" type="button" value="0"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></input>
+  				<input id="error-send" type="button" value="0" ><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></input>
   			</div>
 
 	  	 </div>
 		 <div class="row">
 	  		<div class="col-md-4" >
+	  			
 	  			<div class="panel panel-default">
-		  			<div id="boleta_terminal_venta" class="panel-body"></div>
-		  		    <div class="panel-footer">Total:</div>
-
+		  			<div id="boleta_terminal_venta" class="panel-body">		  				
+		  			</div>
+		  		    <div id="ticket-footer" class="panel-footer">
+		  		    	<hgroup style="text-align: right;">
+				  		    <h4 style="display:inline;">Total:</h4>
+				  		    <h4 id="footer-total" style="display:inline;">0</h4>
+			  		    </hgroup>
+		  		    </div>
 	  			</div>
+	  			
 	  			<div id="buttons_container">
 	  				<input type="button" class="btn btn-primary" value="Guardar" id="ticket_save_button" />
 	  				<input type="button" class="btn btn-success" value="Continuar" id="button-ticket-next" />
@@ -33,7 +46,7 @@
 	  			{% for product in products %}
 	  			<div class="col-md-3 prod_obj_data">
 	    			<div class="thumbnail thumbnail-product-ticket" >
-	      			  <img src="{{ product.model_pic.url }}" alt="No Photo" class="img-thumbnail"  style="width:180px;height:130px">
+	      			  <img src="{{ product.model_pic.url }}" alt="No Photo" class="img-thumbnail"  style="width:150px;height:90px">
       					<div class="caption">
         					<label>{{ product.name }}</label> 
         					<input type='hidden' value="{{ product.id }}" id="product_ian" readonly="readonly" />
