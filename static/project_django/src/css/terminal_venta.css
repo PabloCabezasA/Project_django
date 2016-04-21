@@ -160,9 +160,10 @@ a.dropdown-toggle{
 }
 
 .table-form{
-    width: 850px;
+    width: auto;
     max-width: 900px;
     margin: auto;
+    margin-bottom: 25px;
 }
 
 .table-form > tbody> tr{    
@@ -175,7 +176,7 @@ a.dropdown-toggle{
 }
 
 .table-inlines-forms{
-    width: 840px;
+    width: 100%;
     max-width: 900px;
     position: center;
     margin: 5px;
@@ -195,29 +196,26 @@ a.dropdown-toggle{
 }
 
 .box-inline-form{
-    max-width: 900px;
-    width: 850px;
-    border: 1px solid black;
-    margin: auto;
-    margin-top: 25px;
+    width: auto;
+}
+
+.panel{
+    width: auto;
 }
 
 .form-inline-form{
-    max-width: 950px;
-    width: 900px;
-    border: 1px solid black;
-    padding: 15px;
-    border-radius: 5px;
+    padding: 5px;
 
 }
 
 .footer-form-order{
-    width: 850px;
+    width: auto;
     max-width: 900px;
     margin: auto;    
     margin-top: 5px;
 }
 
 .box-total-form-order{
+    margin-right: 15px; 
     text-align: right;
 }

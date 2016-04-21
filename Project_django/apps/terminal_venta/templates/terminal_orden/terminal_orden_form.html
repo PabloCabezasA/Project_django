@@ -3,12 +3,13 @@
 {% block level1 %}
 	<div class="container-fluid">
   		<div class="row">
-	  		<div class="col-md-offset-4 col-md-4 col-md-offset-4">
-					<h1>Pedido-{{ terminal_order.name }}</h1>
-	  		</div>
-	  		<div class="col-md-offset-2 col-md-6 col-md-offset-4">
+	  		<div class="col-md-offset-2 col-md-8 col-md-offset-2">
+	  		<div class="panel panel-default">
+			  <div class="panel-heading">Pedido de Venta <strong>{{ terminal_order.name }}</strong></div>
+			  <div class="panel-body">		
        			    <form action="." method="POST" class="form-inline-form" enctype="multipart/form-data">
    			          {% csrf_token %}
+   	
    			          		<table class="table-form">
    			          			<tr>
 		          				<td><label for="id_name">Nombre: </label>{{ form.name }}</br></td>
@@ -16,7 +17,12 @@
 		          				<td><label for="id_session_id">Sesion:</label>{{ form.session_id}}</td>
    			          			</tr>
    			          		</table> 
-						    <div class="box-inline-form">
+
+   			          		<ul class="nav nav-tabs">
+					  			<li role="presentation" class="active"><a href="#detalle">Lineas</a></li>
+							</ul>
+
+						    <div class="box-inline-form" id="detalle">
 							    {{ inlines.management_form }}
   	                          	<table class="table-inlines-forms">			
 									<th>Producto</th>
@@ -48,6 +54,8 @@
    			               </div>
    			               </div>
                  </form>
+  		      </div>
+			
   		        </div>
 	</div>	
 {% endblock %}
