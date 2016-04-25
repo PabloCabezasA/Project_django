@@ -35,6 +35,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
+    'django_tables2',
+    'crispy_forms',
     'Project_django.apps.terminal_venta',
 
 
@@ -126,3 +129,5 @@ REST_FRAMEWORK = {
     #   'rest_framework.renderers.BrowsableAPIRenderer',
     )
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'

@@ -4,13 +4,18 @@ from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from django.db.models import Q
 from django.http import HttpResponse
+from Project_django.apps.terminal_venta.tables import TerminalSessionTable
 from Project_django.apps.terminal_venta.models import Product_product, Terminal_order, Terminal_order_line, Terminal_session
 from Project_django.apps.terminal_venta import forms
 from django.core.urlresolvers import reverse
+from tables import TerminalSessionTable
+from filters import TerminalSessionFilter
+from utils import PagedFilteredTableView
 import json
 import simplejson
 import random
 import datetime
+
 # Create your views here.
 def access_session_user(func):
     def validate_session(request, *args,**kwargs):
@@ -206,6 +211,13 @@ class ListSession(ListView):
     model = Terminal_session
     template_name = 'session/list_session.html'
     paginate_by = 10
+
+class SessionList(PagedFilteredTableView):
+    model = Terminal_session
+    table_class = TerminalSessionTable
+    filter_class = TerminalSessionFilter
+    formhelper_class = forms.TerminalSessionFormHelper
+
 
 class UpdateSessionView(UpdateView):
     model = Terminal_session

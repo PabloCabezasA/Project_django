@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^orderSerializer/$', OrderSerializerList.as_view()),
 #sessions URLS
     url(r'^session/add/$', views.AddSession.as_view(), name='session-add'),
-    url(r'^session/list/$', views.ListSession.as_view(), name='session-list'),
+    url(r'^session/list/$', views.SessionList.as_view(), name='session-list'),
     url(r'^session/edit/(?P<pk>\d+)/$', views.UpdateSessionView.as_view(), name='session-edit'),
     url(r'^session/close/session/(?P<pk>\d+)/$', views.close_session, name="session-close")
 ]

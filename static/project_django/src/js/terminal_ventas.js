@@ -1,10 +1,25 @@
 var server = 'http://localhost/'
 $(document).ready(function(){		 
+
 	$("#pos-sale-ticket-invoice").html()
+
 	$("#button-ticket-next").hide()
+
 	$("#ticket_print_button").hide()	
+
 	$('.prod_obj_data').click(function(){
 		pauseAppendTicket(this)
+	});
+
+	$('.ref-filter-show').click(function(){
+        $('.popup-form-filter').fadeIn('slow');
+        return false;		
+	});
+
+	$('.popup-close').click(function(){
+		$('.popup-form-filter').fadeOut('slow');
+		//$('body').css('opacity', '1');
+		return false;
 	});
 
 	$("#button-ticket-next").click(function(){

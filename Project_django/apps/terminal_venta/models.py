@@ -81,7 +81,7 @@ class Terminal_order_line(models.Model):
 
 class Terminal_session(models.Model):
     name = models.CharField('Nombre', max_length=60, unique=True)
-    user_id = models.ForeignKey(User)
+    user_id = models.ForeignKey(User,verbose_name='Usuario')
     date_start = models.DateField('Fecha Inicio')
     date_close = models.DateField('Fecha Cierre', blank=True, null=True)
     state = models.CharField('Estado', choices=(('start','Inicio'),('close','Cerrado')), max_length=5, blank=True)
