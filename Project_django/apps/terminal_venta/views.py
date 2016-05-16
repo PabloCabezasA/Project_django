@@ -8,8 +8,8 @@ from Project_django.apps.terminal_venta.tables import TerminalSessionTable
 from Project_django.apps.terminal_venta.models import Product_product, Terminal_order, Terminal_order_line, Terminal_session
 from Project_django.apps.terminal_venta import forms
 from django.core.urlresolvers import reverse
-from tables import TerminalSessionTable
-from filters import TerminalSessionFilter
+from tables import TerminalSessionTable, TerminalOrderTable
+from filters import TerminalSessionFilter, TerminalOrderFilter
 from utils import PagedFilteredTableView
 import json
 import simplejson
@@ -164,6 +164,14 @@ class ListTerminalView(ListView):
         return Terminal_order.objects.all()      
     
 
+class TerminalViewList(PagedFilteredTableView):
+    model = Terminal_order
+    table_class = TerminalOrderTable
+    filter_class = TerminalOrderFilter
+    formhelper_class = forms.TerminalOrderFormHelper
+    template_name = 'terminal_orden/terminal_orden_list.html'
+
+
 class UpdateTerminalView(UpdateView):
     model = Terminal_order
     template_name = 'terminal_orden/terminal_orden_form.html'
@@ -217,7 +225,7 @@ class SessionList(PagedFilteredTableView):
     table_class = TerminalSessionTable
     filter_class = TerminalSessionFilter
     formhelper_class = forms.TerminalSessionFormHelper
-
+    template_name = 'session/list_session.html'
 
 class UpdateSessionView(UpdateView):
     model = Terminal_session

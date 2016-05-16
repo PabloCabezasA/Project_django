@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^product_product_form/edit/(?P<pk>\d+)/$', views.EditProductView.as_view(), name='product-edit'),
 #Terminal URLS
     url(r'^terminal_view/$', 'Project_django.apps.terminal_venta.views.terminal_view', name='terminal-view'),
-    url(r'^terminal_orden/$', login_required(views.ListTerminalView.as_view()), name='terminal-orden'),   
+    url(r'^terminal_orden/$', login_required(views.TerminalViewList.as_view()), name='terminal-orden'),   
     url(r'^terminal_orden_form/edit/(?P<pk>\d+)/$', views.UpdateTerminalView.as_view(), name='terminal-orden-edit'),     
 #Serializer URLS
     url(r'^snippets/$', ProductSerializerList.as_view()),
