@@ -64,3 +64,9 @@ class TerminalOrderFormHelper(FormHelper):
     form_tag = False
     help_text_inline = True
     form_show_labels = True
+
+class ProductProductHelper(FormHelper):
+    model = Product_product
+    form_tag = False
+    help_text_inline = True
+    form_show_labels = True    
