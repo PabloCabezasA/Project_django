@@ -251,3 +251,13 @@ a.dropdown-toggle{
     position:relative;
     float: right;
 }
+
+.filter-tables{
+    padding : 5px;
+    text-align: right;
+}
+
+#forms-filter{
+    padding : 15px;
+    margin: 15px;
+}

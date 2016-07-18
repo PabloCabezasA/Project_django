@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^terminal_view/save_data/$', 'Project_django.apps.terminal_venta.views.save_data', name='save-data'),    
 #Products URLS
     url(r'^product_product_form/$', views.AddProductView.as_view(), name='product-add'),
-    url(r'^product_product_list/$', views.ProductList.as_view(), name='product-list'),
+    url(r'^product_product_list/$', views.ListProductView.as_view(), name='product-list'),
     url(r'^product_product_list/filter/$', views.ListProductView.as_view(), name='product-list-filter'),
     url(r'^product_product_form/edit/(?P<pk>\d+)/$', views.EditProductView.as_view(), name='product-edit'),
 #Terminal URLS

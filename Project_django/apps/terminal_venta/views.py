@@ -4,13 +4,14 @@ from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from django.db.models import Q
 from django.http import HttpResponse
-from Project_django.apps.terminal_venta.tables import TerminalSessionTable
 from Project_django.apps.terminal_venta.models import Product_product, Terminal_order, Terminal_order_line, Terminal_session
 from Project_django.apps.terminal_venta import forms
 from django.core.urlresolvers import reverse
-from tables import TerminalSessionTable, TerminalOrderTable
-from filters import TerminalSessionFilter, TerminalOrderFilter
+
+from tables import TerminalSessionTable, TerminalOrderTable, ProductProductTable
+from filters import TerminalSessionFilter, TerminalOrderFilter, ProductProductFilter
 from utils import PagedFilteredTableView
+
 import json
 import simplejson
 import random
@@ -99,17 +100,24 @@ class AddProductView(CreateView):
         return  res
 
 
-class ListProductView(ListView):
-    template_name = 'product/product_product_list.html'
-    model = Product_product
-    paginate_by = 9
+#class ListProductView(ListView):
+#    template_name = 'product/product_product_list.html'
+#    model = Product_product
+#    paginate_by = 9
 
-    def get_queryset(self):
-        print self.request.GET
-        name = self.request.GET.get('filtro')
-        if name:
-            return Product_product.objects.filter(Q(name__contains = name))
-        return Product_product.objects.all()
+#    def get_queryset(self):
+#        print self.request.GET
+#        name = self.request.GET.get('filtro')
+#        if name:
+#            return Product_product.objects.filter(Q(name__contains = name))
+#        return Product_product.objects.all()
+
+class ListProductView(PagedFilteredTableView):
+    model = Product_product
+    table_class = ProductProductTable
+    filter_class = ProductProductFilter
+    formhelper_class = forms.TerminalSessionFormHelper
+    template_name = 'product/product_product_list.html'
 
 
 class EditProductView(UpdateView):
